@@ -13,7 +13,5 @@ https://spring.io/guides
 * Idea：2019.3.1
 * 系统：windows10 家庭版
 * Jdk: 8
-* git
-
-
+* git: 2.21.0.windows.1
 * spring：5.0.3 release

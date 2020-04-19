@@ -1,0 +1,30 @@
+/*模态框样式设置*/
+.modal-header{
+    border-bottom: none;
+}
+
+/*第三方登录的图片*/
+.thrid-part-login_img{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: auto;
+}
+.thrid-part-login img{
+    width: 100%;
+}
+
+/*登录注册的表单*/
+.inputForm{
+    padding: 5%;
+}
+.inputForm div{
+    margin-top: 5%;
+}
+
+/*登录注册标签页按钮样式*/
+.nav-tabs>li{
+    width: 50%;
+}
+.nav-tabs>li>a{
+    text-align: center;
+}

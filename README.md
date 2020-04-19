@@ -11,6 +11,8 @@
 [<font color=#F4606C>Github OAuth</font>](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)  
 [<font color=#F4606C>java发送post请求的okHttp</font>](</font>]https://square.github.io/okhttp/)  
 [<font color=#F4606C>fastJson</font>](https://github.com/alibaba/fastjson/wiki/Quick-Start-CN)
+[<font>关于OkhttpClient请求超时问题参考的文章</font>](https://blog.csdn.net/do168/article/details/51848895)
+[<font color=#F4606C>菜鸟教程</font>](https://www.runoob.com/)
 ### 开发工具
 * Idea：2019.3.1
 * 系统：windows10 家庭版

@@ -28,3 +28,17 @@
 .nav-tabs>li>a{
     text-align: center;
 }
+/*GitHub用户图片*/
+.userimg{
+    width: 50px;
+}
+/*我 下拉菜单*/
+.mineDropDownMenu{
+    text-align: center;
+    float: right;
+}
+/*用户下拉菜单本体*/
+.userDropdownMenuConponent{
+    text-align: center;
+    min-width:10px;
+}

@@ -31,7 +31,9 @@ public class GithubProvider {
                     .build();
             try{
                 Response response = client.newCall(request).execute();
-                return response.body().string().split("&")[0].split("=")[1];
+                String accessToken = response.body().string().split("&")[0].split("=")[1];
+
+                return accessToken;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -51,12 +53,14 @@ public class GithubProvider {
                     .readTimeout(10, TimeUnit.SECONDS)
                     .build();
             Request request = new Request.Builder()
-                    .url("https://api.github.com/user?access_token="+accessToken)
+                    .url("https://api.github.com/user")
+                    .header("Authorization","token "+accessToken)
                     .build();
 
             try{
                 Response response = client.newCall(request).execute();
                 String string = response.body().string();
+
                 //使用fastJson将json字符串解析成githubUser对象
                 GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
                 return githubUser;

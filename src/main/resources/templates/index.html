@@ -32,8 +32,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li  th:if="${session.user == null}"><a data-toggle="modal" data-target="#loginModel" href="">登录</a></li>
                 <li class="dropdown" style="float: right"  th:unless="${session.user == null}">
-                    <img th:if="${session.user.getAvatar_url() != null}" class=".img-responsive img-circle userimg" th:src="${session.user.getAvatar_url()}" >
-                    <img th:unless="${session.user.getAvatar_url() != null}" class=".img-responsive img-circle userimg" src="img/generalUserImg.png" >
+                    <img th:if="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" th:src="${session.user.getAvatar()}" >
+                    <img th:unless="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" src="img/generalUserImg.png" >
                     <a href="#" class="dropdown-toggle mineDropDownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"></a>
                     <ul class="dropdown-menu" userDropdownMenuConponent>
                         <li><a href="#">消息中心</a></li>
@@ -126,6 +126,8 @@
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
     </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 </body>
 </html>

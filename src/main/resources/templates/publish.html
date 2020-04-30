@@ -33,13 +33,17 @@
                             <label for="tag">标签</label>
                             <input type="text" class="form-control" name="tag" id="tag" placeholder="标签，使用/隔开">
                         </div>
+                        <div th:if="${session.user == null}" class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>用户未登录!</strong>
+                        </div>
                         <button style="float: right" type="submit" class="btn btn-success">发表</button>
                     </form>
                 </div>
                 <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
-                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">主题：描述帖子主题</span><br>
-                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">内容：帖子详细内容</span><br>
-                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true">标签：帖子标签，使用/隔开，每个不超过10个字</span><br>
+                    <span class="" aria-hidden="true">主题：描述帖子主题</span><br>
+                    <span class="" aria-hidden="true">内容：帖子详细内容</span><br>
+                    <span class="" aria-hidden="true">标签：帖子标签，使用/隔开，每个不超过10个字</span><br>
                 </div>
             </div>
         </div>

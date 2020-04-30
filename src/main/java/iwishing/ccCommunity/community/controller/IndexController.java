@@ -20,19 +20,31 @@ public class IndexController {
     @GetMapping("/")
     public String index(HttpServletRequest request, HttpServletResponse response){
        //根据token查询用户，判断用户是否登录过
-        Cookie[] cookies = request.getCookies();
-        //遍历cookie
-        for (Cookie cookie:cookies
-             ) {
-            if("token".equals(cookie.getName())){
-                String token = cookie.getValue();
-                User user = userService.findByToken(token);
-                //如果能通过这个token查询到用户，则直接登录这个用户
-                if(user != null){
-                    request.getSession().setAttribute("user",user);
+        //遍历cookie,如果token存在，则不去判断是否有username，GitHub登录大于普通登录
+        Cookie [] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie ck : cookies
+            ) {
+                if ("token".equals(ck.getName())) {
+                    String token = ck.getValue();
+                    User user = userService.findByToken(token);
+                    //如果能通过这个token查询到用户，则直接登录这个用户
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
+                } else if ("username".equals(ck.getName())) {
+                    User user = userService.findByUsername(Long.valueOf(ck.getValue()));
+                    //如果通过username获取到的用户不为空，则存入session登录成功
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
+                return "index";
             }
+        }else{
+            return "index";
         }
         return "index";
     }

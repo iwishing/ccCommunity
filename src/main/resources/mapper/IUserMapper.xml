@@ -9,8 +9,16 @@
 <insert id="insertUser" parameterType="User">
     insert into user (account_id, name, token, avatar, gmt_create, gmt_modified) values (#{account_id},#{name},#{token},#{avatar},#{gmtCreate},#{gmtModified});
 </insert>
+<!--    根据密令查找用户，用户使用GitHub登录后，如果存在cookie则直接登录-->
 <select id="findByToken" resultType="User" parameterType="java.lang.String">
     select * from user where token=#{token};
 </select>
-
+<!--根据用户查找用户，如果用户使用登录正常登录，则执行登录操作-->
+    <select id="findByUser" resultType="User" parameterType="User">
+        select * from user where account_id=#{account_id} and password=#{password};
+    </select>
+<!--根据用户名查找用户，cookie登录需要-->
+    <select id="findByUsername" resultType="User" parameterType="java.lang.Long">
+        select * from user where account_id=#{account_id}};
+    </select>
 </mapper>

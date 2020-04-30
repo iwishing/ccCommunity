@@ -21,4 +21,18 @@ public interface IUserMapper {
      * @return
      */
     public User findByToken(String token);
+
+    /**
+     * 根据用户查询用户，登录操作
+     * @param user
+     * @return
+     */
+    public User findByUser(User user);
+
+    /**
+     * 根据用户名查询用户，使用cookie登录时使用
+     * @param username
+     * @return
+     */
+    public User findByUsername(long username);
 }

@@ -33,4 +33,15 @@ public class UserServiceImpl implements IUserService {
     public User findByToken(String token) {
         return userMapper.findByToken(token);
     }
+
+    @Override
+    public User findByUser(User user) {
+
+        return userMapper.findByUser(user);
+    }
+
+    @Override
+    public User findByUsername(long username) {
+        return userMapper.findByUsername(username);
+    }
 }

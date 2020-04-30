@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
@@ -54,6 +55,7 @@ public class AuthorizeController {
         requestAccessTokenDTO.setClient_id(client_id);
         requestAccessTokenDTO.setClient_secret(client_secret);
         requestAccessTokenDTO.setRedirect_uri(redirect_uri);
+        System.out.println(requestAccessTokenDTO.toString());
         //获取access Token
         String accessTokenk = githubProvider.getAccessToken(requestAccessTokenDTO);
 
@@ -62,8 +64,8 @@ public class AuthorizeController {
         //使用accessToken获取用户信息
         GithubUser githubUser = githubProvider.getUser(accessTokenk);
         System.out.println(githubUser);
-        //判断登录是否成功
-        if(githubUser != null){
+        //判断登录是否成功,用户不为空，且用户id不为空
+        if(githubUser != null && githubUser.getId() != 0L){
             //登录成功，保存用户数据，持久化数据
             User user = new User();
 

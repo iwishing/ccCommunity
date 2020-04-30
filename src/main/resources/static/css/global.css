@@ -24,9 +24,13 @@ html,body {
 /*登录注册的表单*/
 .inputForm{
     padding: 5%;
+    margin-bottom: 50px;
 }
 .inputForm div{
     margin-top: 5%;
+}
+#registerContent{
+    padding-bottom: 100px;
 }
 
 /*登录注册标签页按钮样式*/

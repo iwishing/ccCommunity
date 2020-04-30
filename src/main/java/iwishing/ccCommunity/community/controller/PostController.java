@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public class PostController {
      * 发表帖子
      * @return
      */
-    @PostMapping("publishPost")
+    @PostMapping("/publishPost")
     public String publishPost(@RequestParam String title,
                               @RequestParam String description,
                               @RequestParam String tag,
@@ -74,10 +75,9 @@ public class PostController {
 
             System.out.println("帖子id"+pid);
             postService.saveTag(taglist);
-            return "redirect:/postList";
+            return "redirect:postList";
         }else {
-//            model.addAttribute("error",Error)
-            return "redirect:/postList";
+            return "redirect:publish";
         }
     }
 }

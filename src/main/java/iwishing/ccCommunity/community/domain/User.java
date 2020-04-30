@@ -6,6 +6,8 @@ package iwishing.ccCommunity.community.domain;
 public class User {
     //用户id
     private long account_id;
+    //密码
+    private String password;
     //用户名
     private String name;
     //用户令牌
@@ -27,6 +29,14 @@ public class User {
 
     public void setAccount_id(long account_id) {
         this.account_id = account_id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -88,7 +98,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "account_id='" + account_id + '\'' +
+                "account_id=" + account_id +
+                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", token='" + token + '\'' +
                 ", avatar='" + avatar + '\'' +

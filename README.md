@@ -13,6 +13,10 @@
 [<font color=#F4606C>fastJson</font>](https://github.com/alibaba/fastjson/wiki/Quick-Start-CN)  
 [<font>关于OkhttpClient请求超时问题参考的文章</font>](https://blog.csdn.net/do168/article/details/51848895)  
 [<font color=#F4606C>菜鸟教程</font>](https://www.runoob.com/)  
+[<font color=#F4606C>阿里云短信验证</font>](https://dysms.console.aliyun.com/dysms.htm?spm=5176.8195934.1283918..144a30c9hgoyME&aly_as=mUKUUN9uw&accounttraceid=7ef6e803652b42e8b92e9562c84966acbzzq#/overview)    
+[<font color=#F4606C>ajax的datatype和使用方法</font>](https://blog.csdn.net/blackcat88/article/details/89487915)    
+[<font color=#F4606C>controller加上二级映射静态资源加载问题</font>](https://blog.csdn.net/xia4820723/article/details/49659263)  
+
 ### 开发工具
 * Idea：2019.3.1
 * 系统：windows10 家庭版

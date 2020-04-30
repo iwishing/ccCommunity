@@ -75,7 +75,12 @@
             <artifactId>mybatis-spring</artifactId>
             <version>2.0.4</version>
         </dependency>
-
+<!--        阿里云jdk-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.1.0</version>
+        </dependency>
     </dependencies>
 
 

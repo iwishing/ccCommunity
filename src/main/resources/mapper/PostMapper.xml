@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="iwishing.ccCommunity.community.mapper.IUserMapper">
+    <insert id="savePost" parameterType="post" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into post (title, description, creator, gmt_create, gmt_modified)
+        VALUES (#{title},#{description},#{creator},#{gmt_create},#{gmt_modified});
+    </insert>
+    <insert id="saveTag" parameterType="java.util.List">
+        insert into tag_Table (post_id, tagtype) VALUES
+         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            (
+            #{item.post_id},
+            #{item.tagtype}
+            )
+        </foreach>
+    </insert>
+</mapper>

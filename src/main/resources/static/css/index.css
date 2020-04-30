@@ -1,44 +1,38 @@
-/*模态框样式设置*/
-.modal-header{
-    border-bottom: none;
+#indexBody{
+    padding-bottom: 100px;
+    background: url("../img/backImage/backImage1.png") no-repeat center fixed;
+    background-size: 100%;
 }
-
-/*第三方登录的图片*/
-.thrid-part-login_img{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: auto;
+/*body的头部分*/
+.indexHeader{
+    padding-bottom: 10px ;
+    background-color: white;
+    border-top: 1px solid #DCDCDC;
+    border-left: 1px solid #DCDCDC;
+    border-right: 1px solid #DCDCDC;
 }
-.thrid-part-login img{
-    width: 100%;
+/*body的主体部分*/
+.indexMainBody{
+    background-color: white;
+    border: 1px solid #DCDCDC;
+    padding: 10px 0;
+    margin-top: 20px;
 }
-
-/*登录注册的表单*/
-.inputForm{
-    padding: 5%;
+/*主界面的主体部分*/
+.main{
+    margin: 50px;
 }
-.inputForm div{
-    margin-top: 5%;
-}
-
-/*登录注册标签页按钮样式*/
-.nav-tabs>li{
-    width: 50%;
-}
-.nav-tabs>li>a{
+/*主体部分中的用户信息区域*/
+.userInfo{
+    padding: 10px;
     text-align: center;
+    border: 2px solid lightgray;
 }
-/*GitHub用户图片*/
-.userimg{
-    width: 50px;
+/*图片*/
+.userInfoimg{
+    width: 80%;
+    margin: 10px;
 }
-/*我 下拉菜单*/
-.mineDropDownMenu{
-    text-align: center;
-    float: right;
-}
-/*用户下拉菜单本体*/
-.userDropdownMenuConponent{
-    text-align: center;
-    min-width:10px;
+.userInfoLevel{
+    margin-bottom: 10px;
 }

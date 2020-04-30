@@ -2,8 +2,7 @@ package iwishing.ccCommunity.community.controller;
 
 import iwishing.ccCommunity.community.DTO.GithubUser;
 import iwishing.ccCommunity.community.DTO.RequestAccessTokenDTO;
-import iwishing.ccCommunity.community.mapper.IUserMapper;
-import iwishing.ccCommunity.community.model.User;
+import iwishing.ccCommunity.community.domain.User;
 import iwishing.ccCommunity.community.provider.GithubProvider;
 import iwishing.ccCommunity.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * 获取github信息并处理的controller
@@ -24,6 +25,8 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
 
+    @Autowired
+    private IUserService userService;
 
     @Value("${github.client.id}")
     private String client_id;
@@ -32,8 +35,6 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String redirect_uri;
 
-    @Autowired
-    private IUserService userService;
 
     /**
      * 接受GitHub响应
@@ -44,7 +45,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callBack(@RequestParam(name="code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request){
+                           HttpServletRequest request,
+                           HttpServletResponse response){
 
         RequestAccessTokenDTO requestAccessTokenDTO = new RequestAccessTokenDTO();
         requestAccessTokenDTO.setCode(code);
@@ -64,17 +66,23 @@ public class AuthorizeController {
         if(githubUser != null){
             //登录成功，保存用户数据，持久化数据
             User user = new User();
-            user.setAccount_id(String.valueOf(githubUser.getId()));
+
+            user.setAccount_id(githubUser.getId());
             user.setName(githubUser.getName());
-            user.setToken(UUID.randomUUID().toString());
             user.setAvatar(githubUser.getAvatar_url());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            //创建用户密令
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
 
             //将user加入session，并创建cookie
             request.getSession().setAttribute("user",user);
             System.out.println(user);
+            //存储用户信息
             userService.insertUser(user);
+            //将token存入cookie
+            response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else{
             //登录失败

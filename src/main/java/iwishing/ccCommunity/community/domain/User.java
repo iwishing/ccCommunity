@@ -1,11 +1,11 @@
-package iwishing.ccCommunity.community.model;
+package iwishing.ccCommunity.community.domain;
 
 /**
  * 用户模型
  */
 public class User {
     //用户id
-    private String account_id;
+    private long account_id;
     //用户名
     private String name;
     //用户令牌
@@ -21,11 +21,11 @@ public class User {
     //数据修改时间
     private long gmtModified;
 
-    public String getAccount_id() {
+    public long getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(String account_id) {
+    public void setAccount_id(long account_id) {
         this.account_id = account_id;
     }
 

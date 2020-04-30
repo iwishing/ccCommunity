@@ -1,0 +1,17 @@
+body{
+    background-image: url("../img/planet/starSky.png");
+    background-size: 100%;
+}
+/*列表样式*/
+.communityList li{
+    float: left;
+    list-style: none;
+}
+/*图片样式*/
+.communityList li img{
+    width: 70%;
+}
+.communityList li img:hover{
+    cursor: pointer;
+    transform: scale(1.3,1.3);
+}

@@ -9,5 +9,8 @@
 <insert id="insertUser" parameterType="User">
     insert into user (account_id, name, token, avatar, gmt_create, gmt_modified) values (#{account_id},#{name},#{token},#{avatar},#{gmtCreate},#{gmtModified});
 </insert>
+<select id="findByToken" resultType="User" parameterType="java.lang.String">
+    select * from user where token=#{token};
+</select>
 
 </mapper>

@@ -9,125 +9,177 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/global.css">
 </head>
-<body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">萌圈社区</span>
-            </button>
-            <a class="navbar-brand" href="#">萌圈社区</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索圈子、贴子">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li  th:if="${session.user == null}"><a data-toggle="modal" data-target="#loginModel" href="">登录</a></li>
-                <li class="dropdown" style="float: right"  th:unless="${session.user == null}">
-                    <img th:if="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" th:src="${session.user.getAvatar()}" >
-                    <img th:unless="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" src="img/generalUserImg.png" >
-                    <a href="#" class="dropdown-toggle mineDropDownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"></a>
-                    <ul class="dropdown-menu" userDropdownMenuConponent>
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
-                        <li><a href="#"></a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-<!--                模态框-->
-        <div id="loginModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="loginAndRegister">登录与注册</h4>
+    <body>
+    <div  id="indexBody">
+        <div>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">萌圈社区</span>
+                        </button>
+                        <a class="navbar-brand" href="#">萌圈社区</a>
                     </div>
-                    <div class="modal-body">
- <!-- 标签页-->
-                        <div>
 
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist" >
-                                <li role="presentation" class="active"><a href="#login" aria-controls="home" role="tab" data-toggle="tab">登录</a></li>
-                                <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">注册</a></li>
-                            </ul>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="搜索圈子、贴子">
+                            </div>
+                            <button type="submit" class="btn btn-default">搜索</button>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li  th:if="${session.user == null}"><a data-toggle="modal" data-target="#loginModel" href="">登录</a></li>
+                            <li class="dropdown" style="float: right"  th:unless="${session.user == null}">
+                                <img th:if="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" th:src="${session.user.getAvatar()}" >
+                                <img th:unless="${session.user.getAvatar() != null}" class=".img-responsive img-circle userimg" src="img/generalUserImg.png" >
+                                <a href="#" class="dropdown-toggle mineDropDownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"></a>
+                                <ul class="dropdown-menu userDropdownMenuConponent" >
+                                    <li><a href="#">消息中心</a></li>
+                                    <li><a href="#">个人资料</a></li>
+                                    <li><a href="#">退出登录</a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                    <!--                模态框-->
+                    <div id="loginModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="loginAndRegister">登录与注册</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- 标签页-->
+                                    <div>
 
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-<!--  登录输入框组-->
-                                <div role="tabpanel" class="tab-pane active" id="login">
-                                    <div id="loginContent">
-                                        <div  class="row">
-                                        <form class="inputForm">
-                                            <div class="input-group">
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist" >
+                                            <li role="presentation" class="active"><a href="#login" aria-controls="home" role="tab" data-toggle="tab">登录</a></li>
+                                            <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">注册</a></li>
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <!--  登录输入框组-->
+                                            <div role="tabpanel" class="tab-pane active" id="login">
+                                                <div id="loginContent">
+                                                    <div  class="row">
+                                                        <form class="inputForm">
+                                                            <div class="input-group">
                                                     <span class="input-group-addon" id="usernameInputIcon">
                                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                     </span>
-                                                    <input type="text" class="form-control" placeholder="Username" aria-describedby="usernameInputIcon">
-                                            </div>
-                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="usernameInputIcon">
+                                                            </div>
+                                                            <div class="input-group">
                                                 <span class="input-group-addon" id="passwordInputIcon">
                                                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
                                                 </span>
-                                                <input type="password" class="form-control" placeholder="Password" aria-describedby="passwordInputIcon">
-                                            </div>
-                                            <div>
-                                                <button class="loginButton col-md-6 col-md-offset-3" type="submit">登录</button>
-                                            </div>
-                                        </form>
-                                        </div>
-<!--                第三方登录-->
-                                        <div class="row">
-                                            <div style="text-align: center; margin:5% 0 auto auto">使用第三方登录</div>
-                                            <div class="thrid-part-login">
-                                                <div class="thrid-part-login_img row">
-                                                    <a class="loginInGithub col-md-2 col-md-offset-3" href="https://github.com/login/oauth/authorize?client_id=237e5873d26b4c9b7e35&redirect_uri=http://localhost:8080/callback&scope=user&state=1"><img class=".img-responsive img-circle" src="img/githubIcon.png"></a>
-                                                    <a class="loginInWechat col-md-2 col-md-offset-2" href=""><img class=".img-responsive img-circle" src="img/wechatIcon.png"></a>
+                                                                <input type="password" class="form-control" placeholder="Password" aria-describedby="passwordInputIcon">
+                                                            </div>
+                                                            <div>
+                                                                <button class="loginButton col-md-6 col-md-offset-3" type="submit">登录</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!--                第三方登录-->
+                                                    <div class="row">
+                                                        <div style="text-align: center; margin:5% 0 auto auto">使用第三方登录</div>
+                                                        <div class="thrid-part-login">
+                                                            <div class="thrid-part-login_img row">
+                                                                <a class="loginInGithub col-md-2 col-md-offset-3" href="https://github.com/login/oauth/authorize?client_id=237e5873d26b4c9b7e35&redirect_uri=http://localhost:8080/callback&scope=user&state=1"><img class=".img-responsive img-circle" src="img/githubIcon.png"></a>
+                                                                <a class="loginInWechat col-md-2 col-md-offset-2" href=""><img class=".img-responsive img-circle" src="img/wechatIcon.png"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
- <!--  注册输入框组-->
-                                <div role="tabpanel" class="tab-pane" id="register">
-                                    <div id="registerContent">
-                                        <form class="inputForm">
-                                            <div class="input-group">
+                                            <!--  注册输入框组-->
+                                            <div role="tabpanel" class="tab-pane" id="register">
+                                                <div id="registerContent">
+                                                    <form class="inputForm">
+                                                        <div class="input-group">
                                                     <span class="input-group-addon" id="registerUsernameInputIcon">
                                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                     </span>
-                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="registerUsernameInputIcon">
-                                            </div>
-                                            <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Username" aria-describedby="registerUsernameInputIcon">
+                                                        </div>
+                                                        <div class="input-group">
                                                 <span class="input-group-addon" id="registerPasswordInputIcon">
                                                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
                                                 </span>
-                                                <input type="password" class="form-control" placeholder="Password" aria-describedby="registerPasswordInputIcon">
+                                                            <input type="password" class="form-control" placeholder="Password" aria-describedby="registerPasswordInputIcon">
+                                                        </div>
+                                                        <div>
+                                                            <button class="loginButton col-md-6 col-md-offset-3" type="submit">注册</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <button class="loginButton col-md-6 col-md-offset-3" type="submit">注册</button>
-                                            </div>
-                                        </form>
+                                        </div>
+
+                                    </div>
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        </div><!-- /.container-fluid -->
+                    </div>
+                </div>
+            </nav>
+            <div class=" container-fluid main">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8 indexHeader">
+                        <h3>主页，欢迎您！</h3>
+<!--                        <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">-->
+<!--                            <div>-->
+<!--                                <img src="">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-11 col-xs-11 col-sm-11 col-lg-11">-->
+<!--                            <div><h3>社区名称</h3></div>-->
+<!--                            <div><h5>描述</h5></div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8 indexMainBody" >
+                        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2">
+                            <div>
+                                <div class="userInfo">
+                                    <div>
+                                        <img class="userInfoimg" src="img/generalUserImg.png">
+                                    </div>
+                                    <div class="userInfoLevel">
+                                        等级以及图标
+                                    </div>
+                                    <div class="userInfoLevel">
+                                        10000/10000
                                     </div>
                                 </div>
                             </div>
-
+                            <div>
+                                推荐标签
+                            </div>
                         </div>
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-    </div><!-- /.container-fluid -->
+                        <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe id="communityListView" class="embed-responsive-item" src="indexCommunityList"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-</body>
+    <footer style="text-align: center;background-color: #ffffff;">
+        <p>Posted by | <a target="_blank" href="https://www.github.com/iwishing">iwishing</a>></p>
+        <p>Email:<a>cbwen1997@foxmail.com</a></p>
+    </footer>
+    </body>
 </html>

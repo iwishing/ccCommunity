@@ -1,6 +1,6 @@
 package iwishing.ccCommunity.community.mapper;
 
-import iwishing.ccCommunity.community.model.User;
+import iwishing.ccCommunity.community.domain.User;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,4 +14,11 @@ public interface IUserMapper {
      * @param user
      */
     public void insertUser(User user);
+
+    /**
+     * 根据令牌查询用户
+     * @param token 令牌
+     * @return
+     */
+    public User findByToken(String token);
 }

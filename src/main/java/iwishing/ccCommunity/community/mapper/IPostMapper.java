@@ -1,5 +1,6 @@
 package iwishing.ccCommunity.community.mapper;
 
+import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.domain.Post;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ public interface IPostMapper {
      * 保存帖子方法
      * @param post
      */
-    public int savePost(Post post);
+    public int savePost(PostDTO post);
 
     /**
      * 保存标签
@@ -26,5 +27,5 @@ public interface IPostMapper {
      * 查询所有帖子
      * @return
      */
-    public List findAll();
+    public List findAllByCommunityId(int community_id);
 }

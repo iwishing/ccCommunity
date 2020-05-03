@@ -54,3 +54,17 @@ html,body {
     text-align: center;
     min-width: 10px;
 }
+/*1级文本，标题*/
+.textLevel1{
+
+}
+/*2级文本，描述*/
+.textLevel2{
+
+}
+/*3级文本，浏览数，回复数等*/
+.textLevel3{
+    font-size: 12px;
+    color: darkgray;
+    font-weight: normal;
+}

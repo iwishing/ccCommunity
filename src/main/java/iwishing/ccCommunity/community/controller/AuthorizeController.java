@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
@@ -69,7 +68,7 @@ public class AuthorizeController {
             //登录成功，保存用户数据，持久化数据
             User user = new User();
 
-            user.setAccount_id(githubUser.getId());
+            user.setUsername(githubUser.getId());
             user.setName(githubUser.getName());
             user.setAvatar(githubUser.getAvatar_url());
             user.setGmtCreate(System.currentTimeMillis());
@@ -82,7 +81,7 @@ public class AuthorizeController {
             request.getSession().setAttribute("user",user);
             System.out.println(user);
             //存储用户信息
-            userService.insertUser(user);
+            userService.insertUserOfGithub(user);
             //将token存入cookie
             response.addCookie(new Cookie("token",token));
             return "redirect:/";

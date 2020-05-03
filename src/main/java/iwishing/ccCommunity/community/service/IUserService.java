@@ -1,5 +1,6 @@
 package iwishing.ccCommunity.community.service;
 
+import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.domain.User;
 
 /**
@@ -10,8 +11,12 @@ public interface IUserService {
      * 插入用户方法
      * @param user
      */
+    public void insertUserOfGithub(User user);
+    /**
+     * 注册插入用户
+     * @param user
+     */
     public void insertUser(User user);
-
     /**
      * 根据token去查询用户
      * @param token 令牌
@@ -30,5 +35,5 @@ public interface IUserService {
      * @param username
      * @return
      */
-    public User findByUsername(long username);
+    public UserDTO findByUsername(long username);
 }

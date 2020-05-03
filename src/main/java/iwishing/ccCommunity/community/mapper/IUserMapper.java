@@ -1,5 +1,6 @@
 package iwishing.ccCommunity.community.mapper;
 
+import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,13 @@ import org.springframework.stereotype.Repository;
 @Repository("userMapper")
 public interface IUserMapper {
     /**
-     * 插入用户方法
+     * 插入github用户方法
+     * @param user
+     */
+    public void insertUserOfGithub(User user);
+
+    /**
+     * 注册插入用户
      * @param user
      */
     public void insertUser(User user);
@@ -34,5 +41,5 @@ public interface IUserMapper {
      * @param username
      * @return
      */
-    public User findByUsername(long username);
+    public UserDTO findByUsername(long username);
 }

@@ -5,20 +5,53 @@
 
 <mapper namespace="iwishing.ccCommunity.community.mapper.IUserMapper">
 
-<!--    插入用户数据-->
-<insert id="insertUser" parameterType="User">
-    insert into user (account_id, name, token, avatar, gmt_create, gmt_modified) values (#{account_id},#{name},#{token},#{avatar},#{gmtCreate},#{gmtModified});
+<!--    插入github用户数据-->
+<insert id="insertUserOfGithub" parameterType="User">
+    insert into user (username, name, token, avatar, gmt_create, gmt_modified) values (#{username},#{name},#{token},#{avatar},#{gmtCreate},#{gmtModified});
 </insert>
+
+    <!--    插入用户数据-->
+<insert id="insertUser" parameterType="User">
+    insert into user (username, password,name, token, gmt_create, gmt_modified) values (#{username},#{password},#{name},#{token},#{gmtCreate},#{gmtModified});
+</insert>
+
 <!--    根据密令查找用户，用户使用GitHub登录后，如果存在cookie则直接登录-->
 <select id="findByToken" resultType="User" parameterType="java.lang.String">
     select * from user where token=#{token};
 </select>
+
 <!--根据用户查找用户，如果用户使用登录正常登录，则执行登录操作-->
     <select id="findByUser" resultType="User" parameterType="User">
-        select * from user where account_id=#{account_id} and password=#{password};
+        select * from user where username=#{username} and password=#{password};
     </select>
+
+
+    <resultMap id="findByUsernameMap" type="userDTO">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="name" column="name"></result>
+        <result property="token" column="token"></result>
+        <result property="avatar" column="avatar"></result>
+        <result property="gender" column="gender"></result>
+        <result property="user_role" column="user_role"></result>
+        <result property="gmtCreate" column="gmtCreate"></result>
+        <result property="gmtModified" column="gmtModified"></result>
+        <collection property="communityList" javaType="java.util.List" ofType="communityDTO">
+            <id column="community_id" property="community_id"></id>
+            <result column="creator" property="creator"></result>
+            <result column="communityName" property="communityName"></result>
+            <result column="description" property="description"></result>
+            <result column="avatar" property="avatar"></result>
+            <result column="focus_count" property="focus_count"></result>
+            <result column="post_count" property="post_count"></result>
+            <result column="gmt_create" property="gmt_create"></result>
+            <result column="gmt_modified" property="gmt_modified"></result>
+        </collection>
+    </resultMap>
 <!--根据用户名查找用户，cookie登录需要-->
-    <select id="findByUsername" resultType="User" parameterType="java.lang.Long">
-        select * from user where account_id=#{account_id}};
+    <select id="findByUsername" resultMap="findByUsernameMap" parameterType="java.lang.Long">
+        select user.*,c.communityName,c.id,c.avatar,c.creator,c.description,c.focus_count,c.post_count,c.gmt_create,c.gmt_modified from user right join user_community
+        on uid = user.id left join community as c on cid = c.id where user.username = #{username};
     </select>
 </mapper>

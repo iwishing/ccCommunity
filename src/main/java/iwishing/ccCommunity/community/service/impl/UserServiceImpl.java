@@ -1,8 +1,10 @@
 package iwishing.ccCommunity.community.service.impl;
 
+import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.mapper.IUserMapper;
 import iwishing.ccCommunity.community.domain.User;
 import iwishing.ccCommunity.community.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,13 +14,18 @@ import javax.annotation.Resource;
  */
 @Service("userService")
 public class UserServiceImpl implements IUserService {
-    @Resource(name = "userMapper")
+    @Autowired
     private IUserMapper userMapper;
 
     /**
      * 保存用户
      * @param user
      */
+    @Override
+    public void insertUserOfGithub(User user) {
+        userMapper.insertUserOfGithub(user);
+    }
+
     @Override
     public void insertUser(User user) {
         userMapper.insertUser(user);
@@ -41,7 +48,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findByUsername(long username) {
+    public UserDTO findByUsername(long username) {
         return userMapper.findByUsername(username);
     }
 }

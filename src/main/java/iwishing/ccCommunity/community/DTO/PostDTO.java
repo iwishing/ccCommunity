@@ -1,23 +1,22 @@
-package iwishing.ccCommunity.community.domain;
+package iwishing.ccCommunity.community.DTO;
 
+import iwishing.ccCommunity.community.domain.Tag;
+import iwishing.ccCommunity.community.domain.User;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 /**
- * 帖子
+ * 帖子数据传输对象
  */
 @Data
-public class Post implements Comparable{
+public class PostDTO {
     //帖子id
     private int id;
     //帖子标题
     private String title;
     //帖子描述
     private String description;
-    //帖子创建者
-    private long creator;
     //帖子等级
     private int postLevel;
     //所属社区id
@@ -28,26 +27,14 @@ public class Post implements Comparable{
     private int view_count;
     //帖子点赞数
     private int like_count;
-    //帖子标签
-    private List<String> tag;
     //帖子创建时间
     private long gmt_create;
     //帖子修改时间
     private long gmt_modified;
-
-    /**
-     * 默认，根据创建时间排序
-     * @param o
-     * @return
-     */
-    @Override
-    public int compareTo(@NotNull Object o) {
-        Post post = (Post)o;
-        if(this.gmt_create < post.getGmt_create()){
-            return 1;
-        }
-        else {
-            return -1;
-        }
-    }
+    //标签
+    private String tag;
+    //帖子标签列表
+    private List<Tag> tags;
+    //用户
+    private User user;
 }

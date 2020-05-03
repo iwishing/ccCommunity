@@ -1,12 +1,15 @@
-package iwishing.ccCommunity.community.domain;
+package iwishing.ccCommunity.community.DTO;
 
+import iwishing.ccCommunity.community.domain.Community;
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * 用户模型
+ * 用户传输对象
  */
 @Data
-public class User {
+public class UserDTO {
     //用户id
     private int id;
     //用户名
@@ -30,4 +33,6 @@ public class User {
     // 验证码
     private String obtainCode;
 
+    //社区和用户是多对多关系
+    private List<CommunityDTO> communityList;
 }

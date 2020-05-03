@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="iwishing.ccCommunity.community.mapper.ICommunityMapper">
+<!--    <resultMap id="communityMap" type="communityDTO">
+        <id column="id" property="id"></id>
+        <result column="creator" property="creator"></result>
+        <result column="name" property="name"></result>
+        <result column="description" property="description"></result>
+        <result column="avatar" property="avatar"></result>
+        <result column="focus_count" property="focus_count"></result>
+        <result column="post_count" property="post_count"></result>
+        <result column="gmt_create" property="gmt_create"></result>
+        <result column="gmt_modified" property="gmt_modified"></result>
+        <collection property="userList" ofType="user" javaType="list">
+
+
+        </collection>
+    </resultMap>
+    <select id="findCommunityByUser" resultMap="communityMap" parameterType="user">
+
+    </select>-->
+</mapper>

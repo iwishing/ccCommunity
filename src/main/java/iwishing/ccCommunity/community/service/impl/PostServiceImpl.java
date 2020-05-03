@@ -1,5 +1,6 @@
 package iwishing.ccCommunity.community.service.impl;
 
+import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.mapper.IPostMapper;
 import iwishing.ccCommunity.community.service.IPostService;
@@ -22,7 +23,7 @@ public class PostServiceImpl implements IPostService {
      * @param post
      */
     @Override
-    public int savePost(Post post) {
+    public int savePost(PostDTO post) {
         return iPostMapper.savePost(post);
     }
 
@@ -35,8 +36,12 @@ public class PostServiceImpl implements IPostService {
         iPostMapper.saveTag(taglist);
     }
 
+    /**
+     * 查询所有帖子
+     * @return
+     */
     @Override
-    public List findAll() {
-        return iPostMapper.findAll();
+    public List findAllByCommunityId(int community_id) {
+        return iPostMapper.findAllByCommunityId(community_id);
     }
 }

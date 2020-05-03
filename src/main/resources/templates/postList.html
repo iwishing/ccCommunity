@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -18,20 +18,40 @@
             <a class="btn btn-default" href="#" role="button">按点赞数</a>
             <a class="btn btn-default" href="#" role="button">按评论数</a>
             <a class="btn btn-default" href="#" role="button">按浏览量</a>
+            <a class="btn btn-default" href="#" role="button">精品帖子</a>
         </div>
         <!--    帖子列表-->
         <div class="row">
+            <input type="hidden" id="communityId" name="communityId" value="${session.community.getId()}">
             <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>0</li>
+                <li>
+                    <div style=""  class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img  style="width: 38px" class="media-object img-circle" src="img/githubIcon.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading">主题</h5>
+                            人名    <span class="textLevel3">2 个回复 · 31 次浏览 · 1 小时前</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul th:each="post:${session.postlist}">
+                <li>
+                    <div style=""  class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img  style="width: 38px" class="media-object img-circle" src="img/githubIcon.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading">主题</h5>
+                             <h6 th:text="post.user"></h6>   <span class="textLevel3">2 个回复 · 31 次浏览 · 1 小时前</span>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
         <!--    分页-->

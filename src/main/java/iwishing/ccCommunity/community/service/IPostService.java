@@ -1,6 +1,6 @@
 package iwishing.ccCommunity.community.service;
 
-import iwishing.ccCommunity.community.domain.Post;
+import iwishing.ccCommunity.community.DTO.PostDTO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface IPostService {
     /**
      * 保存帖子
      */
-    public int savePost(Post post);
+    public int savePost(PostDTO post);
 
     /**
      * 保存标签
@@ -23,5 +23,5 @@ public interface IPostService {
      * 查询所有帖子
      * @return
      */
-    public List findAll();
+    public List findAllByCommunityId(int community_id);
 }

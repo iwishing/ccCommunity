@@ -1,6 +1,7 @@
 package iwishing.ccCommunity.community.mapper;
 
 import iwishing.ccCommunity.community.DTO.CommunityDTO;
+import iwishing.ccCommunity.community.domain.Community;
 import iwishing.ccCommunity.community.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,11 @@ public interface ICommunityMapper {
      * @return
      */
     public List<CommunityDTO> findCommunityByUser(User user);
+
+    /**
+     * 根据社区id查询社区
+     * @param community_id
+     * @return
+     */
+    public CommunityDTO findCommunityById(int community_id);
 }

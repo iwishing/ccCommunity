@@ -37,9 +37,16 @@ public interface IUserMapper {
     public User findByUser(User user);
 
     /**
+     * 根据用户id查找用户
+     * @param userid
+     * @return
+     */
+    public User findByUserId(int userid);
+    /**
      * 根据用户名查询用户，使用cookie登录时使用
      * @param username
      * @return
      */
     public UserDTO findByUsername(long username);
+
 }

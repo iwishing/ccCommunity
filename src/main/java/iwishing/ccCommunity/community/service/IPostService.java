@@ -1,6 +1,8 @@
 package iwishing.ccCommunity.community.service;
 
 import iwishing.ccCommunity.community.DTO.PostDTO;
+import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +26,30 @@ public interface IPostService {
      * @return
      */
     public List findAllByCommunityId(int community_id);
+
+    /**
+     * 根据分页类查询帖子
+     * @param community_id
+     * @param page
+     * @param size
+     * @return
+     */
+    QueryPaginDTO findByQueryPagin(int community_id,int page,int size);
+
+    /**
+     * 根据用户id查询帖子
+     * @param userid
+     * @param page
+     * @param size
+     * @return
+     */
+    QueryPaginDTO findPostByUser(int userid, int page,int size);
+
+    /**
+     * 通过帖子id查找帖子
+     * @param postId
+     * @return
+     */
+    PostDTO findPostByPostId(Integer postId);
+
 }

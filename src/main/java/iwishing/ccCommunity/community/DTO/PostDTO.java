@@ -19,6 +19,8 @@ public class PostDTO {
     private String description;
     //帖子等级
     private int postLevel;
+    //创建人id
+    private int creator;
     //所属社区id
     private int community_id;
     //帖子评论数

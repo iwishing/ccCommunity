@@ -31,4 +31,6 @@ public class CommunityDTO {
 
     //社区和用户是多对多关系
     private List<User> userList;
+    //社区和帖子是一对多的关系
+    private List<PostDTO> postDTOList;
 }

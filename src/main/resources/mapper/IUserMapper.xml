@@ -38,7 +38,7 @@
         <result property="gmtCreate" column="gmtCreate"></result>
         <result property="gmtModified" column="gmtModified"></result>
         <collection property="communityList" javaType="java.util.List" ofType="communityDTO">
-            <id column="community_id" property="community_id"></id>
+            <id column="cid" property="community_id"></id>
             <result column="creator" property="creator"></result>
             <result column="communityName" property="communityName"></result>
             <result column="description" property="description"></result>
@@ -51,7 +51,13 @@
     </resultMap>
 <!--根据用户名查找用户，cookie登录需要-->
     <select id="findByUsername" resultMap="findByUsernameMap" parameterType="java.lang.Long">
-        select user.*,c.communityName,c.id,c.avatar,c.creator,c.description,c.focus_count,c.post_count,c.gmt_create,c.gmt_modified from user right join user_community
+        select user.*,c.communityName,c.id as cid,c.avatar,c.creator,c.description,c.focus_count,c.post_count,c.gmt_create,c.gmt_modified from user right join user_community
         on uid = user.id left join community as c on cid = c.id where user.username = #{username};
+    </select>
+
+
+<!--    根据用户id查找用户，查找帖子，需要封装一个创建者user-->
+    <select id="findByUserId" parameterType="int" resultType="user">
+        select * from user where id=#{userid};
     </select>
 </mapper>

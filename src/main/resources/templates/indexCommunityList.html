@@ -19,7 +19,7 @@
 
                 </a>
             </li>-->
-            <li th:each="community : ${communityList}">
+            <li th:each="community,communityIndex : ${communityList}">
                 <a target="_blank" th:href="@{'/community?community_id='+${community.community_id}}">
                     <img data-toggle="tooltip" data-placement="top" th:title="${community.communityName}" src="img/planet/planet3.png">
                 </a>

@@ -9,7 +9,7 @@ body{
 }
 /*图片样式*/
 .communityList li img{
-    width: 70%;
+    width: 80%;
 }
 .communityList li img:hover{
     cursor: pointer;

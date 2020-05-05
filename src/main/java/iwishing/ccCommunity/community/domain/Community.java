@@ -1,6 +1,7 @@
 package iwishing.ccCommunity.community.domain;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 社区

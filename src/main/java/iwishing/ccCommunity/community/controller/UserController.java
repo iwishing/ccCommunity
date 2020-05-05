@@ -99,6 +99,7 @@ public class UserController {
                                ){
         Map<String, Object> m = new HashMap<>();
 
+        System.out.println(user);
         //判断注册用户名是否为空
         if(user.getUsername() == 0){
             m.put("errorMessage","用户名不能为空！");
@@ -108,7 +109,7 @@ public class UserController {
             m.put("errorMessage","密码不能为空！");
             return JSON.toJSONString(m.get("errorMessage"));
         //判断验证码是否正确*/
-        } else if(!code.equals(user.getObtainCode())) {
+        } else if(code == null || !code.equals(user.getObtainCode())) {
             m.put("errorMessage","验证码不正确！");
             return JSON.toJSONString(m.get("errorMessage"));
         } else {
@@ -147,7 +148,7 @@ public class UserController {
         //
         request.getSession().setAttribute("user",null);
         response.addCookie(new Cookie("token",null));
-        return "/";
+        return "redirect:/";
     }
 
     @PostMapping("/obtainCode")

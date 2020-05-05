@@ -2,6 +2,7 @@ package iwishing.ccCommunity.community.domain;
 
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Post implements Comparable{
     //帖子描述
     private String description;
     //帖子创建者
-    private long creator;
+    private int creator;
     //帖子等级
     private int postLevel;
     //所属社区id
@@ -28,8 +29,6 @@ public class Post implements Comparable{
     private int view_count;
     //帖子点赞数
     private int like_count;
-    //帖子标签
-    private List<String> tag;
     //帖子创建时间
     private long gmt_create;
     //帖子修改时间

@@ -1,0 +1,26 @@
+body{
+    background: url("../img/backImage/backImage1.png") no-repeat center fixed;
+    background-size: 100%;
+}
+/*我的帖子页面主体*/
+.minePostPageContext{
+    background-color: white;
+    border: 1px solid lightgray;
+}
+.main{
+    margin: 50px;
+}
+#postListContext li{
+    list-style: none;
+    margin-top: 20px;
+}
+.profile{
+    margin-top: 20px;
+}
+.section{
+    margin-top: 15px;
+}
+#postListContext li{
+    list-style: none;
+    margin-top: 20px;
+}

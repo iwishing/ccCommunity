@@ -3,8 +3,9 @@ html,body {
     margin: 0;
     padding: 0;
 }
-#contaner{
-
+/*body下除了页脚的整体*/
+#container{
+    margin-bottom: 100px;
 }
 /*模态框样式设置*/
 .modal-header{
@@ -60,11 +61,21 @@ html,body {
 }
 /*2级文本，描述*/
 .textLevel2{
-
+    font-size: 16px;
+    font-weight: normal;
 }
 /*3级文本，浏览数，回复数等*/
 .textLevel3{
     font-size: 12px;
     color: darkgray;
     font-weight: normal;
+}
+/*页脚，相对定位*/
+.footer{
+    margin-top: 50px;
+    width: 100%;
+    bottom:0;
+    left:0;
+    position:fixed;
+    right:0;
 }

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>个人中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="/img/labelIcon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <script type="text/javascript" src="/js/profile.js"></script>
+</head>
+<body>
+<div id="container">
+    <div>
+        <div th:insert="pageComponents::nav"></div>
+        <div class=" container-fluid main">
+            <div class="row">
+                <div class="minePostPageContext col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8">
+                    <div class="profile">
+                        <div class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
+                            <div style="border-bottom: 1px solid lightgray;font-size: 30px">
+                                <span style="font-size: 23px" th:if="${section == 'minePost'}"
+                                      class="glyphicon glyphicon-edit" aria-hidden="true"
+                                      th:text="${sectionName}"></span>
+                                <span style="font-size: 23px" th:if="${section == 'mineInfo'}"
+                                      class="glyphicon glyphicon-home" aria-hidden="true"
+                                      th:text="${sectionName}"></span>
+                                <span style="font-size: 23px" th:if="${section == 'newReply'}"
+                                      class="glyphicon glyphicon-volume-down" aria-hidden="true"
+                                      th:text="${sectionName}"></span>
+                            </div>
+                            <div th:if="${section == 'minePost'}">
+                                <ul id="postListContext">
+                                    <li th:each="post,postindex:${queryPaginDTO.postList}">
+                                        <div style="" class="media">
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img style="width: 38px" class="media-object img-circle"
+                                                         th:src="${post.user.avatar}">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a th:href="@{'/post/'+${post.id}}"><h4 class="media-heading" th:text="${post.title}"></h4></a>
+                                                <span th:text="${post.user.name}"></span>
+                                                      <span class="textLevel3">
+                                                          <span th:text="${post.comment_count}"></span>个回复 ·
+                                                          <span th:text="${post.view_count}"></span>个浏览 ·
+                                                          <span th:text="${#dates.format(post.gmt_create,'yyyy-MM-dd HH:MM')}"></span>
+                                                     </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="pagination pager">
+                                    <li>
+                                        <a th:if="${queryPaginDTO.showFirstPage}" href="/profile/minePost?page=1"
+                                           aria-label="First">
+                                            <span aria-hidden="true"><span class="glyphicon glyphicon-step-backward"
+                                                                           aria-hidden="true"></span></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:if="${queryPaginDTO.showPrevious}"
+                                           th:href="@{'/profile/minePost?page='+${queryPaginDTO.currentPage - 1}}"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true"><span class="glyphicon glyphicon-backward"
+                                                                           aria-hidden="true"></span></span>
+                                        </a>
+                                    </li>
+                                    <li th:each="page:${queryPaginDTO.pages}"
+                                        th:class="${queryPaginDTO.currentPage == page}? 'active':''"><a
+                                            th:href="@{'/profile/minePost?page='+${page}}" th:text="${page}"></a></li>
+                                    <li>
+                                        <a th:if="${queryPaginDTO.showNext}"
+                                           th:href="@{'/profile/minePost?page='+${queryPaginDTO.currentPage + 1}}"
+                                           aria-label="Next">
+                                            <span aria-hidden="true"><span class="glyphicon glyphicon-forward"
+                                                                           aria-hidden="true"></span></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:if="${queryPaginDTO.showEndPage}"
+                                           th:href="@{'/profile/minePost?page='+${queryPaginDTO.totalPage}}"
+                                           aria-label="End">
+                                            <span aria-hidden="true"><span class="glyphicon glyphicon-step-forward"
+                                                                           aria-hidden="true"></span></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
+                            <div class="list-group section">
+                                <a href="/profile/mineInfo"
+                                   th:class="${section == 'mineInfo'}? 'list-group-item active':'list-group-item'">个人信息</a>
+                                <a href="/profile/newReply"
+                                   th:class="${section == 'newReply'}? 'list-group-item active':'list-group-item'">
+                                    <span class="badge">14</span>
+                                    最新回复
+                                </a>
+                                <a href="/profile/minePost"
+                                   th:class="${section == 'minePost'}? 'list-group-item active ':'list-group-item'">所有帖子</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div th:insert="pageComponents::foot"></div>-->
+<footer class="footer" style="text-align: center;background-color: #ffffff;">
+    <p>Posted by | <a target="_blank" href="https://www.github.com/iwishing">iwishing</a>></p>
+    <p>Email:<a>cbwen1997@foxmail.com</a></p>
+</footer>
+</body>
+</html>

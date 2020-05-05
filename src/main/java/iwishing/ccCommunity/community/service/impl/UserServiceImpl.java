@@ -46,7 +46,15 @@ public class UserServiceImpl implements IUserService {
 
         return userMapper.findByUser(user);
     }
-
+    /**
+     * 根据用户id查找用户
+     * @param userid
+     * @return
+     */
+    @Override
+    public User findByUserId(int userid){
+        return userMapper.findByUserId(userid);
+    }
     @Override
     public UserDTO findByUsername(long username) {
         return userMapper.findByUsername(username);

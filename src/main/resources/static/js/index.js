@@ -1,16 +1,16 @@
 $(function () {
     //登录
     $('#longinButton').click(function () {
-        var account_id = $('#loginusername').val().trim();
+        var username = $('#loginusername').val().trim();
         var password = $('#loginpassword').val().trim();
 
-        var loginMessage = document.getElementById("registerMessage");
-        var loginMessageContext = document.getElementById("registerMessageContext");
+        var loginMessage = document.getElementById("loginMessage");
+        var loginMessageContext = document.getElementById("loginMessageContext");
         loginMessage.style.display="none";
 
         //封装user
         var param = {
-            account_id: account_id,
+            username: username,
             password: password
         }
         $.ajax({
@@ -37,7 +37,7 @@ $(function () {
     })
 //注册按钮
     $('#registerButton').click(function () {
-        var account_id = $('#registerUsername').val().trim();
+        var username = $('#registerUsername').val().trim();
         var password = $('#registerPassword').val().trim();
         var repassword = $('#registerRePassword').val().trim();
         var obtainCode = $('#checkcode').val().trim();
@@ -54,7 +54,7 @@ $(function () {
         }
         //封装id，密码，验证码
         var param = {
-            account_id: account_id,
+            username: username,
             password: password,
             obtainCode: obtainCode,
         }

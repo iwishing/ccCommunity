@@ -76,4 +76,17 @@ public interface IPostMapper {
      * @return
      */
     PostDTO findPostByPostId(Integer postId);
+
+
+    /**
+     * 根据帖子id增加阅读数
+     * @param postId
+     */
+    void addViewCountByPostId(@Param("postId") int postId);
+
+    /**
+     * 根据帖子id增加评论数
+     * @param postId
+     */
+    void saveCommentCount(@Param("postId") int postId);
 }

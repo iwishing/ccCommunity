@@ -25,6 +25,7 @@ $(function () {
                 }else {
                     loginMessage.style.display="block";
                     loginMessageContext.innerHTML=data;
+                    setTimeout(function(){loginMessage.style.display="none";}, 2000);
                     return false;
                 }
             },
@@ -50,6 +51,7 @@ $(function () {
         if (password != repassword){
             registerMessage.style.display="block";
             registerMessageContext.innerHTML="两次密码不一致！";
+            setTimeout(function(){registerMessage.style.display="none";}, 2000);
             return false;
         }
         //封装id，密码，验证码
@@ -71,6 +73,7 @@ $(function () {
                 }else {
                     registerMessage.style.display="block";
                     registerMessageContext.innerHTML=data;
+                    setTimeout(function(){registerMessage.style.display="none";}, 2000);
                     return false;
                 }
             },

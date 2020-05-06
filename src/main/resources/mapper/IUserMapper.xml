@@ -60,4 +60,13 @@
     <select id="findByUserId" parameterType="int" resultType="user">
         select * from user where id=#{userid};
     </select>
+
+<!--    更新用户密令-->
+    <update id="updateUserToken" parameterType="User">
+        update user set token=#{token},name=#{name},avatar=#{avatar},gmt_modified=#{gmtModified} where id=#{id};
+    </update>
+<!--    根据用户名查询用户-->
+    <select id="findUserByUsername" parameterType="long" resultType="user">
+        select * from user where username=#{username}
+    </select>
 </mapper>

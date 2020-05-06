@@ -42,4 +42,11 @@ public interface IUserService {
      * @return
      */
     public UserDTO findByUsername(long username);
+
+    /**
+     * 保存用户或者更新用户
+     * @param user
+     * @return
+     */
+    public User insertUserOrUpdate(User user);
 }

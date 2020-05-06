@@ -31,11 +31,12 @@
 
 
 ### 开发工具与环境
-* Idea：2019.3.1
-* 系统：windows10 家庭版
-* Jdk: 8
-* git: 2.21.0.windows.1
-* spring：5.0.3 release
+* Idea：2019.3.1  
+* 系统：windows10 家庭版  
+* Jdk: 8  
+* git: 2.21.0.windows.1  
+* spring：5.0.3 release  
+* [<font color=#F4606C>postman插件</font>](https://www.extfans.com/web-development/gadgdddeaeobeapfhikdkglgbolmfdea/)  
 ### 报错与解决
 [授权登录github经常connection reset](https://blog.csdn.net/fuckingone/article/details/105151628)  
 
@@ -49,3 +50,9 @@
     另一个就是管理我们编写的可能改变的class，当检测到代码有变化，他会自动编译重启，并将第一部分去掉，重启更快，当然，
     得服务器在运行的时候改变
 四.liveReload插件，是chrome插件，当检测到服务器有变化，则自动刷新前端的页面，这两配合可以不用频繁重启刷新，大大提高开发效率
+
+
+
+
+### 遗留问题
+使用枚举表示错误信息

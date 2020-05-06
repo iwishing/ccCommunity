@@ -67,7 +67,6 @@ public class AuthorizeController {
         if(githubUser != null && githubUser.getId() != 0L){
             //登录成功，保存用户数据，持久化数据
             User user = new User();
-
             user.setUsername(githubUser.getId());
             user.setName(githubUser.getName());
             user.setAvatar(githubUser.getAvatar_url());
@@ -76,12 +75,13 @@ public class AuthorizeController {
             //创建用户密令
             String token = UUID.randomUUID().toString();
             user.setToken(token);
+            //判断当前用户是否已经存在，若存在，则不是第一次登陆，更新token即可，否则插入新用户
+            User backUser = userService.insertUserOrUpdate(user);
+
+            System.out.println(backUser);
 
             //将user加入session，并创建cookie
-            request.getSession().setAttribute("user",user);
-            System.out.println(user);
-            //存储用户信息
-            userService.insertUserOfGithub(user);
+            request.getSession().setAttribute("user",backUser);
             //将token存入cookie
             response.addCookie(new Cookie("token",token));
             return "redirect:/";

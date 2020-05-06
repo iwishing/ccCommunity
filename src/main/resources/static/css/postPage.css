@@ -18,8 +18,42 @@ body{
 #textContent{
 
 }
+#postItemIcon{
+    margin-bottom: 20px;
+}
+/*回复窗口*/
+#replyArea{
+    margin: 20px 0;
+}
 /*小组件样式*/
 .postItemIcon{
     color: #999;
     font-size: 20px;
+}
+a:hover{
+    color: darkslateblue;
+    text-decoration:none;
+}
+/*标签*/
+#postTags{
+    margin-top: 100px;
+    margin-bottom: 10px;
+}
+#postTags a{
+    margin-right: 5px;
+}
+
+/*帖子左边*/
+#postPageleft{
+    border-right: 2px solid #eee;
+    margin-bottom: 20px;
+}
+#replyManInfo{
+    font-size: 30px;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+/*帖子右边*/
+#postPageRight{
+
 }

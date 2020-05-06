@@ -143,11 +143,14 @@ public class UserController {
     @GetMapping("/userExit")
     public String userExit(HttpServletRequest request,
                            HttpServletResponse response){
-        //
-        //后来，传用户id，退出当前账号
-        //
-        request.getSession().setAttribute("user",null);
-        response.addCookie(new Cookie("token",null));
+        //删除session中的user
+        request.getSession().removeAttribute("user");
+        //替换cookie中的token，并设置立即删除，所有目录均有效
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);//立即删除
+        cookie.setPath("/");//项目所有目录均有效
+        response.addCookie(cookie);
+
         return "redirect:/";
     }
 

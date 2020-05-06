@@ -49,4 +49,17 @@ public interface IUserMapper {
      */
     public UserDTO findByUsername(long username);
 
+    /**
+     * 更新用户密令
+     * @param user
+     */
+    public void updateUserToken(User user);
+
+    /**
+     * 根据用户民查询用户
+     * @param username
+     * @return
+     */
+    public User findUserByUsername(long username);
+
 }

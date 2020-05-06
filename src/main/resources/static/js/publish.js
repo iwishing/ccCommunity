@@ -28,6 +28,7 @@ $(function () {
                 } else {
                     publishMessageContext.innerHTML = data;
                     publishMessage.style.display = "block";
+                    setTimeout(function(){publishMessage.style.display="none";}, 2000);
                     return false;
                 }
             },

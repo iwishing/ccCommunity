@@ -66,5 +66,12 @@
     <select id="findPostByPostId" resultMap="findPostMap" parameterType="int">
           select post.*,tags.id,tags.tagtype from post left join tag_table as tags on post.id = tags.post_id where post.id=#{postId};
     </select>
-
+<!--增加浏览数-->
+    <update id="addViewCountByPostId">
+        update post set view_count=view_count+1 where id=#{postId}
+    </update>
+<!--增加回复数-->
+    <update id="saveCommentCount" parameterType="int">
+        update post set comment_count=comment_count+1 where id=#{postId};
+    </update>
 </mapper>

@@ -52,4 +52,9 @@ public interface IPostService {
      */
     PostDTO findPostByPostId(Integer postId);
 
+    /**
+     * 根据帖子id增加阅读数
+     * @param postId
+     */
+    void addViewCountByPostId(int postId);
 }

@@ -27,8 +27,6 @@ import java.util.List;
 @Controller
 public class CommunityController {
     @Autowired
-    private IPostService postService;
-    @Autowired
     private IUserService userService;
     @Autowired
     private ICommunityService communityService;
@@ -45,8 +43,6 @@ public class CommunityController {
         }
         UserDTO userDTO = userService.findByUsername(Long.valueOf(user.getUsername()));
         if (userDTO != null) {
-            //新的UserDTO取代user
-            request.getSession().setAttribute("user", userDTO);
             //社区列表传入社区页
             List communityList = userDTO.getCommunityList();
             model.addAttribute("communityList",userDTO.getCommunityList());
@@ -62,16 +58,6 @@ public class CommunityController {
         String community_id = request.getParameter("community_id");
         //获取用户
         CommunityDTO communityDTO = communityService.findCommunityById(Integer.valueOf(community_id));
-/*        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
-
-        //和该用户所加入的所有社区比较，找出这是哪个社区，为了下一步输出该社区信息
-        for (CommunityDTO c:userDTO.getCommunityList()
-             ) {
-            if (Integer.valueOf(community_id) == c.getCommunity_id()){
-                BeanUtils.copyProperties(c,community);
-                break;
-            }
-        }*/
 
            request.getSession().setAttribute("postlist",communityDTO.getPostDTOList());
                //把社区id也存进去，方便后面发表帖子操作

@@ -95,12 +95,21 @@ public class PostController {
         }
     }
 
+    /**
+     * 进入帖子页面
+     * @param postId
+     * @param model
+     * @return
+     */
     @GetMapping("/post/{postId}")
     public String toPostPage(@PathVariable(name = "postId")String postId,
                              Model model){
 
         System.out.println("postId"+postId);
         PostDTO postDTO = postService.findPostByPostId(Integer.valueOf(postId));
+        if (postDTO != null){
+            postService.addViewCountByPostId(postDTO.getId());
+        }
         model.addAttribute("post",postDTO);
         return "postPage";
     }

@@ -24,33 +24,58 @@
             <div class="row">
                 <div class="PostPageContext col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8">
                     <div class="pagePostContent">
-                        <div style="margin-bottom: 20px" class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
-                            <div style="font-size: 30px">
+                        <div id="postPageleft" class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
+                            <div>
+                                <div style="font-size: 30px">
+                                <input id="PostIdHidden" type="hidden" th:value="${post.id}">
                                 <span style="font-size: 23px" aria-hidden="true"
                                       th:text="${post.title}"></span><br>
-                                <span class="textLevel3">
+                                    <span class="textLevel3">
                                     <span th:text="${post.comment_count}"></span>个回复 ·
                                     <span th:text="${post.view_count}"></span>个浏览 ·
                                     <span th:text="${#dates.format(post.gmt_create,'yyyy-MM-dd HH:MM')}"></span>
                                 </span>
+                                </div>
+                                <hr>
+                                <div id="textContent">
+                                    <div th:text="${post.description}"></div>
+                                </div>
+                                <div id="postTags">
+                                    <a href="" th:each="tag:${post.tags}"  class="label label-info">
+                                        <span th:text="${tag.tagtype}"></span>
+                                    </a>
+                                </div>
+                                <hr>
+                                <div id="postItemIcon" class="col-md-4 col-md-offset-4 col-xs-4 col-sm-4 col-lg-4">
+                                    <a style="margin-right: 50px" class="postItemIcon" href="">
+                                        <span class="glyphicon glyphicon-heart" aria-hidden="true"><span class="badge">42</span></span>
+                                    </a>
+                                    <a class="postItemIcon" href="">
+                                        <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <hr>
-                            <div id="textContent">
-                                <div th:text="${post.description}"></div>
-                            </div>
-                            <hr>
-                            <div class="col-md-4 col-md-offset-4 col-xs-4 col-sm-4 col-lg-4">
-                                <a style="margin-right: 50px" class="postItemIcon" href="">
-                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"><span class="badge">42</span></span>
-                                </a>
-                                <a class="postItemIcon" href="">
-                                    <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                                </a>
+                            <div id="replyContext" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                <div id="replyManInfo" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                    <div>
+                                        <img style="width: 38px" class="img-circle" th:src="${session.user.avatar}">
+                                        <a href=""><span class="textLevel2" th:text="${session.user.name}"></span></a>
+                                    </div>
+                                </div>
+                                <div id="replyArea">
+                                    <textarea id="replyContent" class="form-control" rows="3"></textarea>
+                                </div>
+                                <div id="repleyMessage" style="display:none;margin-bottom: 25px">
+                                    <button id="messageButton" class="btn btn-lg btn-block btn-danger" disabled>
+                                        <h5 id="repleyMessageContext"></h5>
+                                    </button>
+                                </div>
+                                <button id="replyButton" style="float: right" type="submit" class="btn btn-success">回复</button>
                             </div>
                         </div>
-                        <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
+                        <div id="postPageRight" class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
                             <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                <div style=";font-size: 30px">
+                                <div style="font-size: 30px">
                                     <div>
                                         <img style="width: 38px" class="img-circle" th:src="${post.user.avatar}">
                                         <a href=""><span class="textLevel2" th:text="${post.user.name}"></span></a>

@@ -143,4 +143,13 @@ public class PostServiceImpl implements IPostService {
         postDTO.setUser(user);
         return postDTO;
     }
+
+    /**
+     * 根据帖子id增加阅读数
+     * @param postId
+     */
+    @Override
+    public void addViewCountByPostId(int postId){
+        iPostMapper.addViewCountByPostId(postId);
+    }
 }

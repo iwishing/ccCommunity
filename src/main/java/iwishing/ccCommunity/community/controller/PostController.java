@@ -1,12 +1,14 @@
 package iwishing.ccCommunity.community.controller;
 
 import com.alibaba.fastjson.JSON;
+import iwishing.ccCommunity.community.DTO.CommentDTO;
 import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
 import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import iwishing.ccCommunity.community.domain.User;
+import iwishing.ccCommunity.community.service.ICommentService;
 import iwishing.ccCommunity.community.service.IPostService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 帖子控制器
@@ -27,6 +28,8 @@ import java.util.List;
 public class PostController {
     @Autowired
     private IPostService postService;
+    @Autowired
+    private ICommentService commentService;
 
     //获取帖子列表
     @GetMapping("/postList")
@@ -58,10 +61,8 @@ public class PostController {
                               HttpServletRequest request,
                               HttpServletResponse response,
                               Model model){
-        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         String community_id = (String) request.getSession().getAttribute("community_id");
-        User user = new User();
-        BeanUtils.copyProperties(userDTO,user);
 
 
         if ( user == null){
@@ -108,9 +109,14 @@ public class PostController {
         System.out.println("postId"+postId);
         PostDTO postDTO = postService.findPostByPostId(Integer.valueOf(postId));
         if (postDTO != null){
+            System.out.println(postDTO.getUser());
             postService.addViewCountByPostId(postDTO.getId());
         }
+        List<CommentDTO> commentDTOList = commentService.findCommentByPostId(Integer.valueOf(postId),1);
+        //排序，创建时间早的在后面
+        Collections.sort(commentDTOList);
         model.addAttribute("post",postDTO);
+        model.addAttribute("commentDTOList",commentDTOList);
         return "postPage";
     }
 }

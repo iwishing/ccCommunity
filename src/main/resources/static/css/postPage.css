@@ -30,6 +30,12 @@ body{
     color: #999;
     font-size: 20px;
 }
+/*小组件样式*/
+.postCommentItemIcon{
+    color: #999;
+    font-size: 10px;
+    cursor:pointer;
+}
 a:hover{
     color: darkslateblue;
     text-decoration:none;
@@ -56,4 +62,42 @@ a:hover{
 /*帖子右边*/
 #postPageRight{
 
+}
+/*帖子回复列表区域*/
+#replyListArea{
+
+}
+/*评论的小物件主体*/
+.commentBody{
+    margin-top: 5px;
+}
+.commentBody .active{
+    color: darkslateblue;
+}
+#replyContext{
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+/*二级评论样式*/
+.seconderyReplyContext{
+    background-color: #eef2f3;
+    margin: 20px;
+    border: 1px solid #DCDCDC;
+    padding: 10px;
+}
+.seconderyReply{
+    margin-bottom: 30px;
+    border-bottom: 1px solid lightgray;
+}
+.media-heading{
+    margin-bottom: 15px;
+}
+.commentBody{
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+/*二级评论的回复按钮*/
+#secondReplyButton{
+    float: right;
+    margin: 10px 0;
 }

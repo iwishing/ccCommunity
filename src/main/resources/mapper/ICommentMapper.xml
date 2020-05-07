@@ -4,8 +4,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="iwishing.ccCommunity.community.mapper.ICommentMapper">
+<!--    保存评论-->
     <insert id="insertComent" parameterType="comment">
-        insert into comment (parent_id, type, content, gmt_create, gmt_modified, commentator)
-        VALUES (#{parent_id},#{type},#{content},#{gmtCreate},#{gmtModified},#{commentator});
+        insert into comment (parent_id, type, content, gmt_create, gmt_modified, commentator, postId)
+        VALUES (#{parent_id},#{type},#{content},#{gmtCreate},#{gmtModified},#{commentator},#{postId});
     </insert>
+
+
+    <resultMap id="findCommentMap" type="CommentDTO">
+        <id column="id" property="id"></id>
+        <result column="postId" property="postId"></result>
+        <result column="parent_id" property="parent_id"></result>
+        <result column="type" property="type"></result>
+        <result column="content" property="content"></result>
+        <result column="gmt_create" property="gmtCreate"></result>
+        <result column="gmt_modified" property="gmtModified"></result>
+        <result column="like_count" property="like_count"></result>
+        <association property="user" javaType="user">
+            <id column="u.id" property="id"></id>
+            <result column="name" property="name"></result>
+            <result column="avatar" property="avatar"></result>
+        </association>
+    </resultMap>
+<!--    根据帖子id查询评论-->
+    <select id="findCommentByPostId" resultMap="findCommentMap">
+        select c.*,u.id,u.name,u.avatar from comment as c left join user as u on c.commentator=u.id where c.postId=#{postId} and c.type=#{type};
+    </select>
+
+<!--根据父评论id查询评论-->
+    <select id="findCommentByCommentId" resultMap="findCommentMap">
+        select c.*,u.id,u.name,u.avatar from comment as c left join user as u on c.commentator=u.id where c.parent_id=#{parent_id} and c.type=#{type};
+    </select>
+
+
+<!--    根据评论id查询评论数量-->
+    <select id="findCommentCountByCommentId" parameterType="int" resultType="int">
+        select count(id) from comment where parent_id=#{comment_id};
+    </select>
 </mapper>

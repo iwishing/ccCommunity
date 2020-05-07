@@ -1,8 +1,10 @@
 package iwishing.ccCommunity.community.DTO;
 
+import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import iwishing.ccCommunity.community.domain.User;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * 帖子数据传输对象
  */
 @Data
-public class PostDTO {
+public class PostDTO implements Comparable{
     //帖子id
     private int id;
     //帖子标题
@@ -39,4 +41,20 @@ public class PostDTO {
     private List<Tag> tags;
     //用户
     private User user;
+
+    /**
+     * 默认，根据创建时间排序
+     * @param o
+     * @return
+     */
+    @Override
+    public int compareTo(@NotNull Object o) {
+        PostDTO post = (PostDTO) o;
+        if(this.gmt_create < post.getGmt_create()){
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
 }

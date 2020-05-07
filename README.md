@@ -18,6 +18,8 @@
 [<font color=#F4606C>mybatis中文文档</font>](https://mybatis.org/mybatis-3/zh/)    
 [<font color=#F4606C>devtools</font>](https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools)    
 [<font color=#F4606C>liveReload</font>](https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools-livereload)    
+[<font color=#F4606C>jQuery官方文档</font>](https://api.jquery.com/jQuery.getJSON/)  
+[<font color=#F4606C>moment官方文档，日期格式化用</font>](http://momentjs.cn/docs/#/parsing/string-format/)  
 
 
 ### 参考资料

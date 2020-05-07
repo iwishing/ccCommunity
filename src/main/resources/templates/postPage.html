@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/postPage.css">
     <link rel="stylesheet" href="/css/global.css">
     <script type="text/javascript" src="/js/postPage.js"></script>
+    <script src="/js/moment.js"></script>
 </head>
 <body>
 <div id="container">
@@ -24,12 +25,14 @@
             <div class="row">
                 <div class="PostPageContext col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8">
                     <div class="pagePostContent">
+<!--                        帖子主体左边-->
                         <div id="postPageleft" class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
+                            <!--                            帖子正文-->
                             <div>
                                 <div style="font-size: 30px">
-                                <input id="PostIdHidden" type="hidden" th:value="${post.id}">
-                                <span style="font-size: 23px" aria-hidden="true"
-                                      th:text="${post.title}"></span><br>
+                                    <input id="PostIdHidden" type="hidden" th:value="${post.id}">
+                                    <span style="font-size: 23px" aria-hidden="true"
+                                          th:text="${post.title}"></span><br>
                                     <span class="textLevel3">
                                     <span th:text="${post.comment_count}"></span>个回复 ·
                                     <span th:text="${post.view_count}"></span>个浏览 ·
@@ -41,7 +44,7 @@
                                     <div th:text="${post.description}"></div>
                                 </div>
                                 <div id="postTags">
-                                    <a href="" th:each="tag:${post.tags}"  class="label label-info">
+                                    <a href="" th:each="tag:${post.tags}" class="label label-info">
                                         <span th:text="${tag.tagtype}"></span>
                                     </a>
                                 </div>
@@ -55,24 +58,94 @@
                                     </a>
                                 </div>
                             </div>
-                            <div id="replyContext" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                <div id="replyManInfo" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                    <div>
-                                        <img style="width: 38px" class="img-circle" th:src="${session.user.avatar}">
-                                        <a href=""><span class="textLevel2" th:text="${session.user.name}"></span></a>
+                            <!--                            帖子回复列表区域-->
+                            <div id="replyListArea" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                <h3><span th:text="${post.comment_count}"></span> 个回复</h3>
+                                <hr>
+                                <div th:each="comment,commentIndex:${commentDTOList}" style="" class="media">
+                                    <div class="media-left">
+                                        <a href="">
+                                            <img style="width: 38px" class="media-object img-circle"
+                                                 th:src="${comment.user.avatar}">
+                                        </a>
                                     </div>
+                                    <div class="media-body" th:id="${'comment-body-'+comment.id}">
+                                        <a href=""><h5 class="media-heading" th:text="${comment.user.name}"></h5></a>
+                                        <span th:text="${comment.content}" class="">
+                                              </span>
+                                        <div class="commentBody">
+                                            <div>
+                                                <a style="margin-right: 50px" class="postCommentItemIcon" href="">
+                                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"><span
+                                                            style="font-size: 5px"
+                                                            th:text="${comment.like_count}"></span></span>
+                                                </a>
+                                                <a class="postCommentItemIcon" onclick="collapseComments(this)"
+                                                   th:id="'collapse-'+${comment.id}" th:data-id="${comment.id}">
+                                                    <span class="glyphicon glyphicon-comment" aria-hidden="true"><span
+                                                            style="font-size: 5px"
+                                                            th:text="${comment.comment_count}"></span></span>
+                                                </a>
+                                                <div class="postCommentItemIcon" style="float: right">
+                                                    #<span th:text="${commentIndex.size -(commentIndex.index)}"
+                                                           style="margin-right: 5px"></span>
+                                                    <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:MM')}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                        二级评论列表-->
+                                        <div class="collapse seconderyReplyContext" th:id="${'comment-'+comment.id}">
+
+                       <!--                     <div th:each="comment,commentIndex:${commentDTOList}" style=""
+                                                 class="media seconderyReply">
+                                                <input th:id="'commentId-'+${comment.id}" type="hidden"
+                                                       th:value="${comment.id}">
+                                                <div class="media-left">
+                                                    <a href="">
+                                                        <img style="width: 38px" class="media-object img-circle"
+                                                             th:src="${comment.user.avatar}">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <a href=""><h5 class="media-heading"
+                                                                   th:text="${comment.user.name}"></h5></a>
+                                                    <span th:text="${comment.content}">
+                                                     </span>
+                                                    <div class="commentBody">
+                                                        <a style="margin-right: 50px" class="postCommentItemIcon"
+                                                           href="">
+                                                                <span class="glyphicon glyphicon-heart"
+                                                                      aria-hidden="true"><span style="font-size: 5px"
+                                                                                               th:text="${comment.like_count}"></span></span>
+                                                        </a>
+                                                        <div class="postCommentItemIcon" style="float: right">
+                                                            <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:MM')}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+
+                                            <div style="margin: 5px 0;padding-bottom: 50px">
+                                                <input th:id="'secondReplyArea-'+${comment.id}" type="text"
+                                                       class="form-control" placeholder="回复一下"/>
+                                                <div id="secondReplyMessage" style="display:none;margin-bottom: 25px">
+                                                    <button class="btn btn-lg btn-block btn-danger" disabled>
+                                                        <h5 id="secondReplyMessageContext"></h5>
+                                                    </button>
+                                                </div>
+                                                <button onclick="secondReply(this)" id="secondReplyButton"
+                                                        th:data-id="${comment.id}" type="submit"
+                                                        class="btn btn-success">发表
+                                                </button>
+                                                <div style="float:none;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div id="replyArea">
-                                    <textarea id="replyContent" class="form-control" rows="3"></textarea>
-                                </div>
-                                <div id="repleyMessage" style="display:none;margin-bottom: 25px">
-                                    <button id="messageButton" class="btn btn-lg btn-block btn-danger" disabled>
-                                        <h5 id="repleyMessageContext"></h5>
-                                    </button>
-                                </div>
-                                <button id="replyButton" style="float: right" type="submit" class="btn btn-success">回复</button>
                             </div>
                         </div>
+<!--                        帖子主体右边-->
                         <div id="postPageRight" class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
                             <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                 <div style="font-size: 30px">
@@ -90,11 +163,37 @@
                                 </div>
                             </div>
                         </div>
+                        <!--                            回复输入框区域-->
+                        <div id="replyContext" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                            <div id="replyManInfo" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                <div>
+                                    <img th:if="${session.user != null}" style="width: 38px" class="img-circle"
+                                         th:src="${session.user.avatar}"/>
+                                    <img th:if="${session.user == null}" style="width: 38px" class="img-circle"
+                                         src="/img/generalUserImg.png">
+                                    <a th:if="${session.user != null}" href=""><span class="textLevel2"
+                                                                                     th:text="${session.user.name}"></span></a>
+                                    <a th:if="${session.user == null}" href=""><span class="textLevel2">游客</span></a>
+                                </div>
+                            </div>
+                            <div id="replyArea">
+                                <textarea id="replyContent" class="form-control" rows="3"
+                                          placeholder="别让楼主寂寞~"></textarea>
+                            </div>
+                            <div id="repleyMessage" style="display:none;margin-bottom: 25px">
+                                <button id="messageButton" class="btn btn-lg btn-block btn-danger" disabled>
+                                    <h5 id="repleyMessageContext"></h5>
+                                </button>
+                            </div>
+                            <button id="replyButton" style="float: right" type="submit" class="btn btn-success">回复
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--<div th:insert="pageComponents::foot"></div>-->
 <footer class="footer" style="text-align: center;background-color: #ffffff;">

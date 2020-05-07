@@ -10,6 +10,7 @@ import iwishing.ccCommunity.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,7 +88,8 @@ public class PostServiceImpl implements IPostService {
             pstd.setTags(tagList);
             pstd.setUser(user);
         }
-
+        //将帖子按照创建时间从新到旧排序
+        Collections.sort(postList);
         queryPaginDTO.setPostList(postList);
 
         System.out.println(queryPaginDTO.getPages());

@@ -2,6 +2,7 @@ package iwishing.ccCommunity.community.service;
 
 import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
+import iwishing.ccCommunity.community.DTO.TagDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,12 +30,12 @@ public interface IPostService {
 
     /**
      * 根据分页类查询帖子
-     * @param community_id
+     * @param str
      * @param page
      * @param size
      * @return
      */
-    QueryPaginDTO findByQueryPagin(int community_id,int page,int size);
+    QueryPaginDTO findByQueryPagin(String str,String idType,int page,int size);
 
     /**
      * 根据用户id查询帖子
@@ -57,4 +58,17 @@ public interface IPostService {
      * @param postId
      */
     void addViewCountByPostId(int postId);
+
+    /**
+     * 根据标签类型获取post
+     * @param TagType
+     * @return
+     */
+    public List<PostDTO> findPostByTagType(String TagType);
+
+    /**
+     * 增加点赞数
+     * @param postId
+     */
+    public void addLikeCountByPostId(int postId);
 }

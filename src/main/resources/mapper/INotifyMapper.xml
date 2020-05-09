@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iwishing.ccCommunity.community.mapper.INotifyMapper">
+<!--    保存通知-->
+    <insert id="insertNotify" parameterType="Notification">
+        insert into notification (notifier, receiver, outerId, type, gmt_create) VALUES (#{notifier},#{receiver},#{outerId},#{type},#{gmtCreate})
+    </insert>
+<!--    根据用户id查询通知总数-->
+    <select id="findNumNotificationByUserId" parameterType="int" resultType="int">
+        select count(notificationId) from notification where receiver=#{userId};
+    </select>
+
+    <resultMap id="findNotificationByUserIdMap" type="NotificationDTO">
+        <id property="notificationId" column="notificationId"></id>
+        <result property="notifyOuterId" column="outerId"></result>
+        <result property="notifyType" column="type"></result>
+        <result property="gmtCreate" column="gmt_create"></result>
+        <result property="status" column="status"></result>
+        <association property="notifier" javaType="User">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+        </association>
+    </resultMap>
+<!--    根据用户id查询通知-->
+    <select id="findNotificationByUserId" resultMap="findNotificationByUserIdMap">
+        select n.notificationId,n.notifier,n.outerId,n.receiver,n.type,n.gmt_create,n.status,user.id,user.name
+        from notification as n left join user on n.receiver=user.id where n.receiver=#{userId} order by gmt_create desc
+        limit #{queryPage},#{size};
+    </select>
+
+
+
+<!--    根据通知id设置通知状态为已读-->
+    <select id="updateNotificationStatus" parameterType="int">
+        update notification set status=1 where notificationId=#{notificationId};
+    </select>
+
+
+<!--    根据用户id查询未读通知数-->
+    <select id="findUnreadNotificationByUserId" parameterType="int" resultType="int">
+        select count(notificationId) from notification where receiver=#{userId} and status=0;
+    </select>
+</mapper>

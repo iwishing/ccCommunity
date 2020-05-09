@@ -5,7 +5,7 @@
 
 <mapper namespace="iwishing.ccCommunity.community.mapper.ICommunityMapper">
     <resultMap id="communityMap" type="communityDTO">
-        <id column="c.id" property="id"></id>
+        <id column="id" property="community_id"></id>
         <result column="creator" property="creator"></result>
         <result column="name" property="name"></result>
         <result column="description" property="description"></result>
@@ -19,4 +19,31 @@
         select * from community where id=#{community_id}
     </select>
 
+    <resultMap id="defaultCommunityMap" type="communityDTO">
+        <id column="id" property="community_id"></id>
+        <result column="creator" property="creator"></result>
+        <result column="name" property="name"></result>
+        <result column="description" property="description"></result>
+        <result column="avatar" property="avatar"></result>
+        <result column="focus_count" property="focus_count"></result>
+        <result column="post_count" property="post_count"></result>
+        <result column="gmt_create" property="gmt_create"></result>
+        <result column="gmt_modified" property="gmt_modified"></result>
+    </resultMap>
+    <select id="findCommunityDefault" resultMap="defaultCommunityMap">
+        select * from community order by focus_count desc limit 0,10;
+    </select>
+
+    <!--    判断用户是否关注该社区-->
+    <select id="findCommunitySubscription" resultType="int">
+        select * from user_community where uid=#{userId} and cid=#{community_id};
+    </select>
+<!--    订阅-->
+    <insert id="subscriptionCommunity">
+        insert into user_community(uid, cid) VALUES (#{userId},#{community_id});
+    </insert>
+<!--    取消订阅-->
+    <delete id="cancelSubscription">
+        delete from user_community where uid=#{userId} and cid=#{community_id};
+    </delete>
 </mapper>

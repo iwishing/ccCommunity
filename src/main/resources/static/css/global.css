@@ -79,3 +79,9 @@ html,body {
     position:fixed;
     right:0;
 }
+
+
+.replayActive{
+    margin-right: 20px;
+    cursor: pointer;
+}

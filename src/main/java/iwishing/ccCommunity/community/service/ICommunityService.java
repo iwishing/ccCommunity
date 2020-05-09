@@ -23,4 +23,28 @@ public interface ICommunityService {
      * @return
      */
     public CommunityDTO findCommunityById(int community_id);
+
+    /**
+     * 获取默认前10个社区
+     * @return
+     */
+    public List<CommunityDTO> findCommunityDefault();
+
+    /**
+     * 判断用户是否关注该社区
+     * @return
+     */
+    public Object findCommunitySubscription(int community_id,int userId);
+
+    /**
+     * 订阅
+     * @param community_id
+     * @param userId
+     */
+    public void subscriptionCommunity(int community_id,int userId);
+
+    /**
+     * 取消订阅
+     */
+    public void cancelSubscription(int community_id,int userId);
 }

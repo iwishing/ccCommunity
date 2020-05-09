@@ -1,4 +1,15 @@
 #postListContext li{
     list-style: none;
-    margin-top: 20px;
+    margin-top: 30px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+.media-heading{
+    margin-bottom: 15px;
+}
+
+
+#postListContext a{
+    cursor: pointer;
+    text-decoration: none;
 }

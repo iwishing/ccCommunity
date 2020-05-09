@@ -1,3 +1,36 @@
+// 点赞评论
+function commentAddLikeCount(e) {
+    var commentId = e.getAttribute("data-id").trim();
+
+    $.ajax({
+        type: "get",
+        url: "/comment/addlike/"+commentId,
+        success:function (data) {
+                window.location.reload()
+        },
+        error:function (err) {
+            return false;
+        }
+    })
+}
+// 点赞帖子
+function addLikeCount() {
+
+    var postId = $('#PostIdHidden').val().trim();
+    var postLikeCount = document.getElementById("postLikeCount");
+
+    $.ajax({
+        type:"get",
+        url:"/post/addlike/"+postId,
+        success:function (data) {
+            window.location.reload();
+        },
+        error:function (err) {
+            return false;
+        }
+    })
+}
+
 //发表二级评论
 function secondReply(e) {
     //根据自己的data-id属性获取id
@@ -202,7 +235,7 @@ function collapseComments(e) {
                         "class": "postCommentItemIcon",
                         "href": ""
                     })
-                    //12`小物件里面的左边的a标签里面的span
+                    /*//12`小物件里面的左边的a标签里面的span
                     var CommentBodyLabalALeftSpan = $("<span/>",{
                         "class": "glyphicon glyphicon-heart",
                         "aria-hidden": "true"
@@ -211,7 +244,7 @@ function collapseComments(e) {
                     var CommentBodyLabalALeftSpanSpan = $("<span/>",{
                         "text": thisComment.like_count,
                         "style": "font-size: 5px"
-                    })
+                    })*/
                     //14`小物件里面的右边div
                     var CommentBodyDivRight = $("<div/>",{
                         "class": "postCommentItemIcon",
@@ -225,8 +258,8 @@ function collapseComments(e) {
 
 
                     CommentBodyDivRight.append(CommentBodyDivRightSpan);
-                    CommentBodyLabalALeftSpan.append(CommentBodyLabalALeftSpanSpan);
-                    CommentBodyLabalALeft.append(CommentBodyLabalALeftSpan);
+                 /*   CommentBodyLabalALeftSpan.append(CommentBodyLabalALeftSpanSpan);
+                    CommentBodyLabalALeft.append(CommentBodyLabalALeftSpan);*/
                     mediaBodyCommentBody.append(CommentBodyLabalALeft);
                     mediaBodyCommentBody.append(CommentBodyDivRight);
                     mediaBodyHead.append(mediaBodyHeadH5);

@@ -38,4 +38,33 @@ public interface ICommentMapper {
      * @return
      */
     public int findCommentCountByCommentId(int comment_id);
+
+    /**
+     *
+     * 点赞评论
+     * @param commentId
+     */
+    public void addLikeCountByComentId(int commentId);
+
+    /**
+     * 根据评论的父评论查评论
+     * @param parent_id
+     * @return
+     */
+    public Comment findCommentByParentId(int parent_id);
+
+    /**
+     * 根据id查询评论conten
+     * @param commentId
+     * @return
+     */
+    public String findCommentTitleById(int commentId);
+
+
+    /**
+     * 根据评论查询帖子id
+     * @param commentId
+     * @return
+     */
+    public int findPostIdByCommentId(int commentId);
 }

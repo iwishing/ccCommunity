@@ -2,14 +2,17 @@ package iwishing.ccCommunity.community.service.impl;
 
 import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
+import iwishing.ccCommunity.community.DTO.TagDTO;
 import iwishing.ccCommunity.community.domain.Tag;
 import iwishing.ccCommunity.community.domain.User;
 import iwishing.ccCommunity.community.mapper.IPostMapper;
 import iwishing.ccCommunity.community.service.IPostService;
+import iwishing.ccCommunity.community.service.ITagService;
 import iwishing.ccCommunity.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +26,8 @@ public class PostServiceImpl implements IPostService {
     private IPostMapper iPostMapper;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ITagService tagService;
 
     /**
      * 保存帖子
@@ -49,6 +54,9 @@ public class PostServiceImpl implements IPostService {
     @Override
     public List findAllByCommunityId(int community_id) {
         List<PostDTO> postList = iPostMapper.findAllByCommunityId(community_id);
+        System.out.println("----------");
+        System.out.println(postList);
+        System.out.println("=============");
         for (PostDTO pstd:postList
         ) {
             User user = userService.findByUserId(pstd.getCreator());
@@ -57,17 +65,30 @@ public class PostServiceImpl implements IPostService {
         return postList;
     }
 
+
     /**
      * 根据分页类查询帖子
-     * @param community_id
+     * @param str
      * @param page
      * @param size
      * @return
      */
     @Override
-    public QueryPaginDTO findByQueryPagin(int community_id,int page,int size) {
+    public QueryPaginDTO findByQueryPagin(String str,String idType,int page,int size) {
         //查询该社区的帖子数
-        int totalCount = iPostMapper.findNumByCommunityId(Integer.valueOf(community_id));
+        int totalCount;
+        String tagtype = null;
+        System.out.println(idType);
+        if ("community_id".equals(idType)){
+            //根据社区查帖子
+            totalCount = iPostMapper.findNumByCommunityId(Integer.valueOf(str));
+        }else{
+            //根据标签查帖子
+            tagtype = tagService.findTagTypeByTagId(Integer.parseInt(str));
+            totalCount = iPostMapper.findNumByTagType(tagtype);
+        }
+
+
         //开始封装queryPagingDTO
         QueryPaginDTO queryPaginDTO = new QueryPaginDTO();
         queryPaginDTO.setPagination(totalCount,page,size);
@@ -80,7 +101,12 @@ public class PostServiceImpl implements IPostService {
         }
         //计算查询的页号
         int queryPage = size*(page-1);
-        List<PostDTO> postList = iPostMapper.findByCommunityId(community_id,queryPage,size);
+        List<PostDTO> postList = new ArrayList<>();
+        if ("community_id".equals(idType)){
+            postList = iPostMapper.findByCommunityId(Integer.valueOf(str),queryPage,size);
+        }else {
+            postList = iPostMapper.findPostByTagType(tagtype,queryPage,size);
+        }
         for (PostDTO pstd:postList
         ) {
             User user = userService.findByUserId(pstd.getCreator());
@@ -89,7 +115,6 @@ public class PostServiceImpl implements IPostService {
             pstd.setUser(user);
         }
         //将帖子按照创建时间从新到旧排序
-        Collections.sort(postList);
         queryPaginDTO.setPostList(postList);
 
         System.out.println(queryPaginDTO.getPages());
@@ -141,6 +166,8 @@ public class PostServiceImpl implements IPostService {
     @Override
     public PostDTO findPostByPostId(Integer postId) {
         PostDTO postDTO = iPostMapper.findPostByPostId(postId);
+        System.out.println("====================");
+        System.out.println(postDTO.getTags().toString());
         User user = userService.findByUserId(postDTO.getCreator());
         postDTO.setUser(user);
         return postDTO;
@@ -153,5 +180,20 @@ public class PostServiceImpl implements IPostService {
     @Override
     public void addViewCountByPostId(int postId){
         iPostMapper.addViewCountByPostId(postId);
+    }
+
+/*
+     * 根据标签id获取帖子
+     * @param tagtype
+     * @return
+     */
+    @Override
+    public List<PostDTO> findPostByTagType(String TagType) {
+        return iPostMapper.findRelatPostByTagType(TagType);
+    }
+
+    @Override
+    public void addLikeCountByPostId(int postId) {
+        iPostMapper.addLikeCountByPostId(postId);
     }
 }

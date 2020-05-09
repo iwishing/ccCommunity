@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="css/global.css">
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" style="padding: 30px;">
     <div class="col-md-9 col-xs-9 col-sm-9 col-lg-9">
         <div class="row">
-            <a class="btn btn-default" href="#" role="button">默认排序</a>
+<!--            <a class="btn btn-default" href="#" role="button">默认排序</a>
             <a class="btn btn-default" href="#" role="button">按点赞数</a>
             <a class="btn btn-default" href="#" role="button">按评论数</a>
             <a class="btn btn-default" href="#" role="button">按浏览量</a>
-            <a class="btn btn-default" href="#" role="button">精品帖子</a>
+            <a class="btn btn-default" href="#" role="button">精品帖子</a>-->
         </div>
         <!--    帖子列表-->
         <div class="row">
@@ -27,7 +27,8 @@
                     <div style=""  class="media">
                         <div class="media-left">
                             <a href="">
-                                <img  style="width: 38px" class="media-object img-circle" th:src="${post.user.avatar}">
+                                <img th:if="${post.user.avatar != null}"  style="width: 38px" class="media-object img-circle" th:src="${post.user.avatar}">
+                                <img th:if="${post.user.avatar == null}"  style="width: 38px" class="media-object img-circle" src="/img/defaultUserIcon.png">
                             </a>
                         </div>
                         <div class="media-body">
@@ -74,26 +75,7 @@
     </div>
     <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
         <div>
-                <a class="btn btn-default" href="publish" role="button">今日签到</a>
-                <a class="btn btn-default" href="publish" role="button">发表帖子</a>
-        </div>
-        <div>
-            <div>
-                <h3>推荐标签</h3>
-            </div>
-            <div>
-                <ul>
-                    <li>
-                        <a>#1</a>
-                    </li>
-                    <li>
-                        <a>#2</a>
-                    </li>
-                    <li>
-                        <a>#3</a>
-                    </li>
-                </ul>
-            </div>
+                <a style="width: 50%;margin-top: 20px;margin-left: 75px;" class="btn btn-success" href="publish" role="button">发表帖子</a>
         </div>
     </div>
 </div>

@@ -1,7 +1,6 @@
 package iwishing.ccCommunity.community.mapper;
 
 import iwishing.ccCommunity.community.DTO.PostDTO;
-import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -56,6 +55,15 @@ public interface IPostMapper {
      */
     Integer findNumByCommunityId(Integer community_id);
 
+
+    /**
+     * 根据标签类型，查询所有含有次标签的帖子总数
+     * @param tagType
+     * @return
+     */
+    Integer findNumByTagType(String tagType);
+
+
     /**
      * 根据用户id，查询用户所有帖子总数
      * @param userId
@@ -89,4 +97,32 @@ public interface IPostMapper {
      * @param postId
      */
     void saveCommentCount(@Param("postId") int postId);
+
+
+    /**
+     * 根据标签类型获取帖子
+     * @param tagtype
+     * @return
+     */
+    public List<PostDTO> findPostByTagType(@Param("tagtype") String tagtype,@Param("queryPage") int queryPage,@Param("size") int size);
+
+    /**
+     * 查找相关帖子根据标签类型
+     * @param tagtype
+     * @return
+     */
+    public List<PostDTO> findRelatPostByTagType(String tagtype);
+
+    /**
+     * 根据帖子id查询点赞数
+     * @param postId
+     */
+    public void addLikeCountByPostId(int postId);
+
+    /**
+     * 根据帖子id查询title
+     * @param postId
+     * @return
+     */
+    public String findPostTitleById(int postId);
 }

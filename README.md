@@ -19,7 +19,10 @@
 [<font color=#F4606C>devtools</font>](https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools)    
 [<font color=#F4606C>liveReload</font>](https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#using-boot-devtools-livereload)    
 [<font color=#F4606C>jQuery官方文档</font>](https://api.jquery.com/jQuery.getJSON/)  
-[<font color=#F4606C>moment官方文档，日期格式化用</font>](http://momentjs.cn/docs/#/parsing/string-format/)  
+[<font color=#F4606C>moment官方文档，日期格式化用</font>](http://momentjs.cn/docs/#/parsing/string-format/)   
+[<font color=#F4606C>editor.md富文本编辑器</font>](https://pandao.github.io/editor.md/#download)   
+[<font color=#F4606C>腾讯云对象存储</font>](https://cloud.tencent.com/document/product/436/10199)   
+[<font color=#F4606C>阿里矢量图形库</font>](https://www.iconfont.cn/)   
 
 
 ### 参考资料

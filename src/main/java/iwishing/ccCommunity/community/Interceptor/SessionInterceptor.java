@@ -1,6 +1,7 @@
 package iwishing.ccCommunity.community.Interceptor;
 
 import iwishing.ccCommunity.community.domain.User;
+import iwishing.ccCommunity.community.service.INotifyService;
 import iwishing.ccCommunity.community.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private INotifyService notifyService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
        //请求来之前，先进行登录验证
@@ -27,6 +31,8 @@ public class SessionInterceptor implements HandlerInterceptor {
                     String token = ck.getValue();
                     User user = userService.findByToken(token);
                     //如果能通过这个token查询到用户，则直接登录这个用户
+                    int notifyCount = notifyService.findUnreadNotificationByUserId(user.getId());
+                    request.getSession().setAttribute("notifyCount",notifyCount);
                     request.getSession().setAttribute("user",user);
                     break;
                 }

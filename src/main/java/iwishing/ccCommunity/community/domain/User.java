@@ -29,5 +29,6 @@ public class User {
     private long gmtModified;
     // 验证码
     private String obtainCode;
-
+    //是否关注该社区
+    private boolean Subscription;
 }

@@ -1,14 +1,12 @@
 package iwishing.ccCommunity.community.controller;
 
 import com.alibaba.fastjson.JSON;
-import iwishing.ccCommunity.community.DTO.CommentDTO;
-import iwishing.ccCommunity.community.DTO.PostDTO;
-import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
-import iwishing.ccCommunity.community.DTO.UserDTO;
+import iwishing.ccCommunity.community.DTO.*;
 import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import iwishing.ccCommunity.community.domain.User;
 import iwishing.ccCommunity.community.service.ICommentService;
+import iwishing.ccCommunity.community.service.INotifyService;
 import iwishing.ccCommunity.community.service.IPostService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,9 @@ public class PostController {
     private IPostService postService;
     @Autowired
     private ICommentService commentService;
+    @Autowired
+    private INotifyService notifyService;
+
 
     //获取帖子列表
     @GetMapping("/postList")
@@ -38,9 +39,18 @@ public class PostController {
                                  @RequestParam(name = "page",defaultValue = "1")Integer page,
                                  @RequestParam(name = "size",defaultValue = "9")Integer size){
         String community_id = (String)request.getSession().getAttribute("community_id");
-        System.out.println(community_id);
-//        List<PostDTO> postList = postService.findAllByCommunityId(Integer.valueOf(community_id));
-        QueryPaginDTO queryPaginDTO = postService.findByQueryPagin(Integer.valueOf(community_id),page,size);
+        String tagId = (String)request.getParameter("tagId");
+
+        QueryPaginDTO queryPaginDTO;
+        //标签id等于null，说明不是点击标签访问的列表
+        if (tagId == null){
+            System.out.println(community_id);
+            queryPaginDTO = postService.findByQueryPagin(community_id,"community_id",page,size);
+        }else {
+            System.out.println("tagid-------"+tagId);
+            queryPaginDTO = postService.findByQueryPagin(tagId,"tagId",page,size);
+        }
+        System.out.println("分页列表："+queryPaginDTO.getPostList());
         model.addAttribute("queryPaginDTO",queryPaginDTO);
         return "postList";
     }
@@ -74,6 +84,15 @@ public class PostController {
         }else if (StringUtils.isEmpty(postDTO.getTag())){
             return JSON.toJSONString("标签不为空！");
         }else {
+            postDTO.setCreator(user.getId());
+            postDTO.setGmt_create(System.currentTimeMillis());
+            postDTO.setGmt_modified(postDTO.getGmt_create());
+            postDTO.setUser(user);
+            postDTO.setCommunity_id(Integer.valueOf(community_id));
+
+            postService.savePost(postDTO);
+            System.out.println("postDTO.getId()"+postDTO.getId());
+
             String[] strs = postDTO.getTag().split("/");
 
             List taglist = new ArrayList<Tag>();
@@ -83,15 +102,7 @@ public class PostController {
                 tagbean.setTagtype(strs[i]);
                 taglist.add(tagbean);
             }
-            postDTO.setCreator(user.getId());
-            postDTO.setGmt_create(System.currentTimeMillis());
-            postDTO.setGmt_modified(postDTO.getGmt_create());
-            postDTO.setTags(taglist);
-            postDTO.setUser(user);
-            postDTO.setCommunity_id(Integer.valueOf(community_id));
-
-            postService.savePost(postDTO);
-            postService.saveTag(postDTO.getTags());
+            postService.saveTag(taglist);
             return JSON.toJSONString( "success");
         }
     }
@@ -109,14 +120,53 @@ public class PostController {
         System.out.println("postId"+postId);
         PostDTO postDTO = postService.findPostByPostId(Integer.valueOf(postId));
         if (postDTO != null){
-            System.out.println(postDTO.getUser());
             postService.addViewCountByPostId(postDTO.getId());
         }
-        List<CommentDTO> commentDTOList = commentService.findCommentByPostId(Integer.valueOf(postId),1);
+        List<CommentDTO> commentDTOList = commentService.findCommentByPostId(Integer.parseInt(postId),1);
         //排序，创建时间早的在后面
         Collections.sort(commentDTOList);
+        //查一个相关post集合
+        List<PostDTO> relatPost = new ArrayList<>();
+        for (Tag pd:postDTO.getTags()
+             ) {
+            relatPost.addAll(postService.findPostByTagType(pd.getTagtype()));
+        }
         model.addAttribute("post",postDTO);
+        model.addAttribute("relatPost",relatPost);
         model.addAttribute("commentDTOList",commentDTOList);
         return "postPage";
     }
+
+    /**
+     * 点赞评论
+     * @param postId
+     * @return
+     */
+        @GetMapping("/post/addlike/{postId}")
+        @ResponseBody
+        public Object addLikeCount(@PathVariable(name = "postId") String postId){
+            postService.addLikeCountByPostId(Integer.parseInt(postId));
+            return JSON.toJSONString("success");
+        }
+
+
+        @GetMapping("/post/notify")
+        public String nitify(HttpServletRequest request){
+            int notifyType = Integer.parseInt(request.getParameter("notifyType"));
+            int notifyOuterId = Integer.parseInt(request.getParameter("notifyOuterId"));
+            int notificationId = Integer.parseInt(request.getParameter("notificationId"));
+            User user = (User) request.getSession().getAttribute("user");
+
+            if (notifyType == 0){
+                //等于0回复的是帖子,状态设置成已读，再跳转
+                notifyService.updateNotificationStatus(notificationId);
+                return "redirect:/post/"+notifyOuterId;
+            }else {
+                //等于1回复的是评论,根据评论id找到帖子id，再将通知设置为已读，然后直接跳转
+                int postId = commentService.findPostIdByCommentId(notifyOuterId);
+                notifyService.updateNotificationStatus(notificationId);
+                return "redirect:/post/"+postId;
+            }
+        }
+
 }

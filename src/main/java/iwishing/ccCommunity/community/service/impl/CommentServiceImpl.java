@@ -68,5 +68,33 @@ public class CommentServiceImpl implements ICommentService {
         return commentDTOList;
     }
 
+    /**
+     * 点赞评论
+     * @param commentId
+     */
+    @Override
+    public void addLikeCountByComentId(int commentId){
+        commentMapper.addLikeCountByComentId(commentId);
+    }
 
+    /**
+     * 根据评论的父评论查评论
+     * @param parent_id
+     * @return
+     */
+    @Override
+    public Comment findCommentByParentId(int parent_id){
+        return commentMapper.findCommentByParentId(parent_id);
+    }
+
+
+    /**
+     * 根据评论查询帖子id
+     * @param commentId
+     * @return
+     */
+    @Override
+    public int findPostIdByCommentId(int commentId){
+        return commentMapper.findPostIdByCommentId(commentId);
+    }
 }

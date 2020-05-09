@@ -14,6 +14,22 @@ body{
 #correlationPost{
     margin-top: 20px;
 }
+#correlationPost li{
+    list-style: none;
+    margin: 10px 0;
+}
+#correlationPost ul{
+    padding-left: 5px;
+}
+#correlationPost a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#recommendDiv{
+
+}
+
 /*正文部分*/
 #textContent{
 
@@ -29,6 +45,7 @@ body{
 .postItemIcon{
     color: #999;
     font-size: 20px;
+    cursor: pointer;
 }
 /*小组件样式*/
 .postCommentItemIcon{
@@ -100,4 +117,7 @@ a:hover{
 #secondReplyButton{
     float: right;
     margin: 10px 0;
+}
+#postLikeCount{
+    cursor: pointer;
 }

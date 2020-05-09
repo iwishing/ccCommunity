@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="iwishing.ccCommunity.community.mapper.IPostMapper">
-    <insert id="savePost" parameterType="postDTO">
+    <insert id="savePost" parameterType="postDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into post (title, community_id, description, creator, gmt_create, gmt_modified) VALUES (#{title},#{community_id},#{description},#{creator},#{gmt_create},#{gmt_modified});
     </insert>
     <insert id="saveTag" parameterType="java.util.List">
@@ -31,6 +31,7 @@
         <result property="gmt_modified" column="gmt_modified"></result>
         <collection property="tags" javaType="list" ofType="tag">
             <id property="id" column="tags.id"></id>
+            <id property="post_id" column="post_id"></id>
             <result property="tagtype" column="tagtype"></result>
         </collection>
     </resultMap>
@@ -39,13 +40,16 @@
     </select>
 <!--根据参数，查询该页帖子-->
     <select id="findByCommunityId" resultType="PostDTO">
-        select * from post where community_id=#{community_id} limit #{queryPage},#{size};
+        select * from post where community_id=#{community_id} order by gmt_create desc limit #{queryPage},#{size};
     </select>
 <!--根据社区id查询社区总帖子数-->
     <select id="findNumByCommunityId" parameterType="int" resultType="int">
         select count(id) from post where community_id=#{community_id};
     </select>
-
+<!--    根据标签类型查询帖子总数-->
+<select id="findNumByTagType" parameterType="java.lang.String" resultType="int">
+    select count(post_id) from post left join tag_table on post.id = tag_table.post_id where tag_table.tagtype=#{tagId};
+</select>
 <!--    根据帖子id查询标签-->
     <resultMap id="findTagByPostIdMap" type="Tag">
         <id column="id" property="id"></id>
@@ -63,7 +67,25 @@
         select count(id) from post where creator=#{userId};
     </select>
 
-    <select id="findPostByPostId" resultMap="findPostMap" parameterType="int">
+
+    <resultMap id="findPostByPostIdMap" type="postDTO">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="description" column="description"></result>
+        <result property="postLevel" column="postLevel"></result>
+        <result property="creator" column="creator"></result>
+        <result property="community_id" column="community_id"></result>
+        <result property="comment_count" column="comment_count"></result>
+        <result property="view_count" column="view_count"></result>
+        <result property="like_count" column="like_count"></result>
+        <result property="gmt_create" column="gmt_create"></result>
+        <result property="gmt_modified" column="gmt_modified"></result>
+        <collection property="tags" javaType="list" ofType="tag">
+            <id property="id" column="tags.id"></id>
+            <result property="tagtype" column="tagtype"></result>
+        </collection>
+    </resultMap>
+    <select id="findPostByPostId" resultMap="findPostByPostIdMap" parameterType="int">
           select post.*,tags.id,tags.tagtype from post left join tag_table as tags on post.id = tags.post_id where post.id=#{postId};
     </select>
 <!--增加浏览数-->
@@ -74,4 +96,45 @@
     <update id="saveCommentCount" parameterType="int">
         update post set comment_count=comment_count+1 where id=#{postId};
     </update>
+
+<!-- 根据标签类型查询帖子-->
+    <!--<resultMap id="findPostByTagTypeMap" type="TagDTO">
+        <id column="tags.id" property="id"></id>
+        <result column="post_id" property="post_id"></result>
+        <result column="tagtype" property="tagtype"></result>
+    </resultMap>-->
+    <resultMap id="findPostByTagTypeMap" type="postDTO">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="description" column="description"></result>
+        <result property="postLevel" column="postLevel"></result>
+        <result property="creator" column="creator"></result>
+        <result property="community_id" column="community_id"></result>
+        <result property="comment_count" column="comment_count"></result>
+        <result property="view_count" column="view_count"></result>
+        <result property="like_count" column="like_count"></result>
+        <result property="gmt_create" column="gmt_create"></result>
+        <result property="gmt_modified" column="gmt_modified"></result>
+    </resultMap>
+    <select id="findPostByTagType" resultMap="findPostByTagTypeMap">
+        select p.* from post as p left join tag_table as tags on p.id = tags.post_id
+        where tags.tagtype=#{tagtype} order by gmt_create desc limit #{queryPage},#{size};
+    </select>
+
+
+
+<!--根据标签类型查询相关帖子-->
+    <select id="findRelatPostByTagType" parameterType="java.lang.String" resultMap="findPostByTagTypeMap">
+        select p.* from post as p left join tag_table as tags on p.id = tags.post_id
+        where tags.tagtype=#{tagtype} order by gmt_create desc;
+    </select>
+
+<!--根据id查询帖子点赞数-->
+    <update id="addLikeCountByPostId" parameterType="int">
+        update post set like_count=like_count+1 where id=#{postId}
+    </update>
+<!--    根据id查询帖子title-->
+    <select id="findPostTitleById" parameterType="int" resultType="java.lang.String">
+        select title from post where id=#{postId}
+    </select>
 </mapper>

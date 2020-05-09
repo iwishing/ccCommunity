@@ -41,4 +41,23 @@
     <select id="findCommentCountByCommentId" parameterType="int" resultType="int">
         select count(id) from comment where parent_id=#{comment_id};
     </select>
+<!--点赞评论-->
+    <update id="addLikeCountByComentId" parameterType="int">
+        update comment set like_count=like_count+1 where id=#{commentId}
+    </update>
+
+<!--根据根据id查询父评论-->
+    <select id="findCommentByParentId" parameterType="int" resultType="Comment">
+        select * from comment where id = #{parent_id};
+    </select>
+<!--    根据评论id查询评论conten-->
+    <select id="findCommentTitleById" parameterType="int" resultType="java.lang.String">
+        select content from comment where id=#{commentId};
+    </select>
+
+
+<!--    根据评论id查询帖子id-->
+    <select id="findPostIdByCommentId" parameterType="int" resultType="int">
+        select postId from comment where id=#{commentId};
+    </select>
 </mapper>

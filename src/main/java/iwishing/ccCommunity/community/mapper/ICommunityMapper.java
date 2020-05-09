@@ -3,6 +3,7 @@ package iwishing.ccCommunity.community.mapper;
 import iwishing.ccCommunity.community.DTO.CommunityDTO;
 import iwishing.ccCommunity.community.domain.Community;
 import iwishing.ccCommunity.community.domain.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,33 @@ public interface ICommunityMapper {
      * @return
      */
     public CommunityDTO findCommunityById(int community_id);
+
+
+    /**
+     * 获取默认前10个社区
+     * @return
+     */
+    public List<CommunityDTO> findCommunityDefault();
+
+    /**
+     * 判断用户是否关注该社区
+     * @param community_id
+     * @param userId
+     * @return
+     */
+    public Object findCommunitySubscription(@Param(value = "community_id") int community_id,@Param(value = "userId") int userId);
+
+    /**
+     * 订阅
+     * @param community_id
+     * @param userId
+     */
+    public void subscriptionCommunity(@Param(value = "community_id") int community_id,@Param(value = "userId") int userId);
+
+    /**
+     * 取消订阅
+     * @param community_id
+     * @param userId
+     */
+    public void cancelSubscription(@Param(value = "community_id") int community_id,@Param(value = "userId") int userId);
 }

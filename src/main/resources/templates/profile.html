@@ -36,14 +36,83 @@
                                       class="glyphicon glyphicon-volume-down" aria-hidden="true"
                                       th:text="${sectionName}"></span>
                             </div>
+<!--                            个人信息-->
+                            <div th:if="${section == 'mineInfo'}">
+                                <div class="row">
+                                    <div col-md-6 col-md-offset-3 col-xs-6 col-sm-6 col-lg-6>
+                                        <div>
+                                            <img th:if="${session.user != null && session.user.avatar != null}" style="width: 38px" class="img-circle"
+                                                 th:src="${session.user.avatar}"/>
+                                            <img th:if="${session.user == null || session.user.avatar == null}" style="width: 38px" class="img-circle"
+                                                 src="/img/defaultUserIcon.png"/>
+                                        </div>
+                                        <div>
+                                            <span th:text="${session.user.name}"></span>
+                                        </div>
+                                        <div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            最新回复-->
+                            <div th:if="${section == 'newReply'}">
+                                <div>
+                                    <ul id="newReplyContext">
+                                        <li th:each="notification:${notifyPagination.notificationDTOS}">
+                                            <a href="">
+                                                <span th:text="${notification.notifier.name}"></span>
+                                            </a>
+                                            <span th:if="${notification.notifyType == 0}">评论了你的帖子</span>
+                                            <span th:if="${notification.notifyType == 1}">评论了你的评论</span>
+                                            <a th:href="@{/post/notify(notifyOuterId=${notification.notifyOuterId},notifyType=${notification.notifyType},notificationId=${notification.notificationId})}">
+                                                <span th:text="${notification.notifyOuterTitle}"></span>
+                                            </a>
+                                            <span th:if="${notification.status == 0}" class="label label-danger">未读</span>
+                                            <span th:if="${notification.status == 1}" class="label label-default">已读</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination pager">
+                                            <li>
+                                                <a th:if="${notifyPagination.showFirstPage}" href="/profile?page=1" aria-label="First">
+                                                    <span aria-hidden="true"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a th:if="${notifyPagination.showPrevious}" th:href="@{'/profile?page='+${notifyPagination.currentPage - 1}}" aria-label="Previous">
+                                                    <span aria-hidden="true"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></span>
+                                                </a>
+                                            </li>
+                                            <li  th:each="page:${notifyPagination.pages}" th:class="${notifyPagination.currentPage == page}? 'active':''"><a th:href="@{'/profile?page='+${page}}" th:text="${page}" ></a></li>
+                                            <li>
+                                                <a th:if="${notifyPagination.showNext}" th:href="@{'/profile?page='+${notifyPagination.currentPage + 1}}" aria-label="Next">
+                                                    <span aria-hidden="true"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a th:if="${notifyPagination.showEndPage}" th:href="@{'/profile?page='+${notifyPagination.totalPage}}" aria-label="End">
+                                                    <span aria-hidden="true"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+<!--                            个人帖子-->
                             <div th:if="${section == 'minePost'}">
                                 <ul id="postListContext">
-                                    <li th:each="post,postindex:${queryPaginDTO.postList}">
+                                    <li th:each="post:${queryPaginDTO.postList}">
                                         <div style="" class="media">
                                             <div class="media-left">
                                                 <a href="#">
-                                                    <img style="width: 38px" class="media-object img-circle"
+                                                    <img th:if="${post.user.avatar != null}" style="width: 38px" class="media-object img-circle"
                                                          th:src="${post.user.avatar}">
+                                                    <img th:if="${post.user.avatar == null}" style="width: 38px" class="media-object img-circle"
+                                                         src="/img/defaultUserIcon.png">
                                                 </a>
                                             </div>
                                             <div class="media-body">
@@ -102,7 +171,7 @@
                                    th:class="${section == 'mineInfo'}? 'list-group-item active':'list-group-item'">个人信息</a>
                                 <a href="/profile/newReply"
                                    th:class="${section == 'newReply'}? 'list-group-item active':'list-group-item'">
-                                    <span class="badge">14</span>
+                                    <span class="badge" th:text="${notifyCount}"></span>
                                     最新回复
                                 </a>
                                 <a href="/profile/minePost"

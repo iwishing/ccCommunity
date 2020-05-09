@@ -10,6 +10,8 @@ import iwishing.ccCommunity.community.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,5 +49,41 @@ public class CommunityServiceImp implements ICommunityService {
 
         return communityDTO;
     }
+    /**
+     * 获取默认前10个社区
+     * @return
+     */
+    @Override
+    public List<CommunityDTO> findCommunityDefault(){
+        return communityMapper.findCommunityDefault();
+    }
 
+    /**
+     * 判断用户是否关注该社区
+     * @return
+     */
+    @Override
+    public Object findCommunitySubscription(int community_id,int userId){
+        return communityMapper.findCommunitySubscription(community_id,userId);
+    }
+
+
+    /**
+     * 订阅
+     * @param community_id
+     * @param userId
+     */
+    @Override
+    public void subscriptionCommunity(int community_id,int userId){
+        communityMapper.subscriptionCommunity(community_id,userId);
+    }
+
+
+    /**
+     * 取消订阅
+     */
+    @Override
+    public void cancelSubscription(int community_id,int userId){
+        communityMapper.cancelSubscription(community_id,userId);
+    }
 }

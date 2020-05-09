@@ -32,21 +32,21 @@
                         <div>
                             <div class="userInfo">
                                 <div>
-                                    <img th:if="${session.user != null}" class="userInfoimg" th:src="${session.user.avatar}">
-                                    <img th:if="${session.user == null}" class="userInfoimg" src="img/generalUserImg.png">
+                                    <img th:if="${session.user != null && session.user.avatar != null}" class="userInfoimg img-thumbnail" th:src="${session.user.avatar}">
+                                    <img th:if="${session.user == null || session.user.avatar == null}" class="userInfoimg img-thumbnail" src="/img/defaultUserIcon.png">
                                 </div>
                                 <div class="userInfoLevel textLevel2">
                                     <span th:if="${session.user != null}" th:text="${session.user.name}"></span>
                                     <span th:if="${session.user == null}">游客</span>
                                 </div>
-                                <div class="userInfoLevel">
+<!--                                <div class="userInfoLevel">
                                     <span th:if="${session.user != null}">10级</span>
                                     <span th:if="${session.user == null}">10级</span>
                                 </div>
                                 <div class="userInfoLevel">
                                     <span th:if="${session.user != null}">10000/10000</span>
                                     <span th:if="${session.user == null}">10000/10000</span>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                         <div>

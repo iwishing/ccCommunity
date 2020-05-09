@@ -16,6 +16,14 @@
     <link rel="stylesheet" href="/css/global.css">
     <script type="text/javascript" src="/js/postPage.js"></script>
     <script src="/js/moment.js"></script>
+    <script type="application/javascript" src="/lib/editormd.min.js"></script>
+    <script src="/lib/marked.min.js"></script>
+    <script src="/lib/prettify.min.js"></script>
+    <link rel="stylesheet" href="/lib/editormd.preview.min.css">
+
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/editormd.css">
 </head>
 <body>
 <div id="container">
@@ -34,6 +42,9 @@
                                     <span style="font-size: 23px" aria-hidden="true"
                                           th:text="${post.title}"></span><br>
                                     <span class="textLevel3">
+                                        <a th:href="@{'/community?community_id='+${post.community_id}}">
+                                            <span>所属社区</span>
+                                        </a>
                                     <span th:text="${post.comment_count}"></span>个回复 ·
                                     <span th:text="${post.view_count}"></span>个浏览 ·
                                     <span th:text="${#dates.format(post.gmt_create,'yyyy-MM-dd HH:MM')}"></span>
@@ -41,17 +52,24 @@
                                 </div>
                                 <hr>
                                 <div id="textContent">
-                                    <div th:text="${post.description}"></div>
+                                    <div id="description-markdown-view">
+                                        <textarea style="display:none;" th:text="${post.description}"></textarea>
+                                    </div>
                                 </div>
+                                <script type="text/javascript">
+                                    $(function() {
+                                        var testView = editormd.markdownToHTML("description-markdown-view", {});
+                                    });
+                                </script>
                                 <div id="postTags">
-                                    <a href="" th:each="tag:${post.tags}" class="label label-info">
+                                    <a th:each="tag:${post.tags}" class="label label-info">
                                         <span th:text="${tag.tagtype}"></span>
                                     </a>
                                 </div>
                                 <hr>
                                 <div id="postItemIcon" class="col-md-4 col-md-offset-4 col-xs-4 col-sm-4 col-lg-4">
-                                    <a style="margin-right: 50px" class="postItemIcon" href="">
-                                        <span class="glyphicon glyphicon-heart" aria-hidden="true"><span class="badge">42</span></span>
+                                    <a style="margin-right: 50px" class="postItemIcon" onclick="addLikeCount()">
+                                        <span class="glyphicon glyphicon-heart" aria-hidden="true"><span id="postLikeCount" class="badge" th:text="${post.like_count}"></span></span>
                                     </a>
                                     <a class="postItemIcon" href="">
                                         <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
@@ -62,20 +80,26 @@
                             <div id="replyListArea" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                 <h3><span th:text="${post.comment_count}"></span> 个回复</h3>
                                 <hr>
+
                                 <div th:each="comment,commentIndex:${commentDTOList}" style="" class="media">
                                     <div class="media-left">
                                         <a href="">
-                                            <img style="width: 38px" class="media-object img-circle"
+                                            <img th:if="${comment.user.avatar != null}" style="width: 38px" class="media-object img-circle"
                                                  th:src="${comment.user.avatar}">
+                                            <img th:if="${comment.user.avatar == null}" style="width: 38px" class="media-object img-circle"
+                                                 src="/img/defaultUserIcon.png">
                                         </a>
                                     </div>
                                     <div class="media-body" th:id="${'comment-body-'+comment.id}">
                                         <a href=""><h5 class="media-heading" th:text="${comment.user.name}"></h5></a>
-                                        <span th:text="${comment.content}" class="">
+                                        <div>
+                                            <span th:text="${comment.content}">
                                               </span>
+                                        </div>
+
                                         <div class="commentBody">
                                             <div>
-                                                <a style="margin-right: 50px" class="postCommentItemIcon" href="">
+                                                <a th:id="'secondReplyLike-'+${comment.id}" th:data-id="${comment.id}" style="margin-right: 50px" class="postCommentItemIcon" onclick="commentAddLikeCount(this)" >
                                                     <span class="glyphicon glyphicon-heart" aria-hidden="true"><span
                                                             style="font-size: 5px"
                                                             th:text="${comment.like_count}"></span></span>
@@ -95,36 +119,6 @@
                                         </div>
                                         <!--                                        二级评论列表-->
                                         <div class="collapse seconderyReplyContext" th:id="${'comment-'+comment.id}">
-
-                       <!--                     <div th:each="comment,commentIndex:${commentDTOList}" style=""
-                                                 class="media seconderyReply">
-                                                <input th:id="'commentId-'+${comment.id}" type="hidden"
-                                                       th:value="${comment.id}">
-                                                <div class="media-left">
-                                                    <a href="">
-                                                        <img style="width: 38px" class="media-object img-circle"
-                                                             th:src="${comment.user.avatar}">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <a href=""><h5 class="media-heading"
-                                                                   th:text="${comment.user.name}"></h5></a>
-                                                    <span th:text="${comment.content}">
-                                                     </span>
-                                                    <div class="commentBody">
-                                                        <a style="margin-right: 50px" class="postCommentItemIcon"
-                                                           href="">
-                                                                <span class="glyphicon glyphicon-heart"
-                                                                      aria-hidden="true"><span style="font-size: 5px"
-                                                                                               th:text="${comment.like_count}"></span></span>
-                                                        </a>
-                                                        <div class="postCommentItemIcon" style="float: right">
-                                                            <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:MM')}"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>-->
-
                                             <div style="margin: 5px 0;padding-bottom: 50px">
                                                 <input th:id="'secondReplyArea-'+${comment.id}" type="text"
                                                        class="form-control" placeholder="回复一下"/>
@@ -143,6 +137,12 @@
                                     </div>
                                     <hr>
                                 </div>
+                                <script type="text/javascript">
+                                    function replyContenReview(e) {
+                                        var id = e.getAttribute("data-id");
+                                        var testView = editormd.markdownToHTML("replyConten-markdown-view-"+id, {});
+                                    };
+                                </script>
                             </div>
                         </div>
 <!--                        帖子主体右边-->
@@ -150,15 +150,29 @@
                             <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                 <div style="font-size: 30px">
                                     <div>
-                                        <img style="width: 38px" class="img-circle" th:src="${post.user.avatar}">
+                                        <img th:if="${post.user != null && post.user.avatar != null}" style="width: 38px" class="img-circle" th:src="${post.user.avatar}">
+                                        <img th:if="${post.user == null || post.user.avatar == null}" style="width: 38px" class="img-circle" src="/img/defaultUserIcon.png">
                                         <a href=""><span class="textLevel2" th:text="${post.user.name}"></span></a>
                                     </div>
                                 </div>
                                 <hr>
-                                <div id="correlationPost">
-                                    <h4>相关帖子</h4>
+                                <div id="recommendDiv">
+                                    <h4 style="margin: 20px 0">推荐内容</h4>
                                     <div>
-
+                                        <img class="img-thumbnail" style="width:150px" src="/img/mineBlog.png">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="correlationPost">
+                                    <h4 style="margin-bottom: 20px">相关帖子</h4>
+                                    <div>
+                                        <ul>
+                                            <li th:each="post:${relatPost}">
+                                                <a th:href="@{'/post/'+${post.id}}">
+                                                    <span th:text="${post.title}"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -167,11 +181,11 @@
                         <div id="replyContext" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                             <div id="replyManInfo" class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
                                 <div>
-                                    <img th:if="${session.user != null}" style="width: 38px" class="img-circle"
+                                    <img th:if="${session.user != null && session.user.avatar != null}" style="width: 38px" class="img-circle"
                                          th:src="${session.user.avatar}"/>
-                                    <img th:if="${session.user == null}" style="width: 38px" class="img-circle"
-                                         src="/img/generalUserImg.png">
-                                    <a th:if="${session.user != null}" href=""><span class="textLevel2"
+                                    <img th:if="${session.user == null || session.user.avatar == null}" style="width: 38px" class="img-circle"
+                                         src="/img/defaultUserIcon.png">
+                                    <a href="/profile/mineInfo" th:if="${session.user != null}"><span class="textLevel2"
                                                                                      th:text="${session.user.name}"></span></a>
                                     <a th:if="${session.user == null}" href=""><span class="textLevel2">游客</span></a>
                                 </div>

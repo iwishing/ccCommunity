@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>搜索结果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="/img/labelIcon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/global.css">
+    <script src="/js/global.js"></script>
+    <link rel="stylesheet" href="/css/searchResult.css">
+</head>
+<body>
+<div id="container">
+    <div>
+        <div th:insert="pageComponents::nav"></div>
+        <div class=" container-fluid main">
+            <div class="row">
+                <div class="minePostPageContext col-md-8 col-md-offset-2 col-xs-8 col-sm-8 col-lg-8">
+                    <div id="searchResultBody">
+                        <h3><span class="glyphicon glyphicon-search" style="margin-right: 10px"></span>搜索结果</h3>
+                        <div class="profile">
+                            <div>
+                                <div>
+
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">用户</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">帖子</a></li>
+                                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">社区</a></li>
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="home">
+                                            <div  th:if="${userList.size() == 0}">
+                                                <img class="notFoundImg" src="/img/notfound2.png">
+                                                <div style="margin-left: 58%;"><h2>无匹配结果</h2></div>
+                                            </div>
+                                            <ul>
+                                                <li th:each="user:${userList}">
+                                                    <a href="">
+                                                        <span th:text="${user.name}"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="profile">
+                                            <div  th:if="${postList.size() == 0}">
+                                                <img class="notFoundImg" src="/img/notfound2.png">
+                                                <div style="margin-left: 58%;"><h2>无匹配结果</h2></div>
+                                            </div>
+                                            <ul>
+                                                <li th:each="post:${postList}">
+                                                    <a th:href="@{'/post/'+${post.id}}">
+                                                        <span th:text="${post.title}"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="messages">
+                                            <div  th:if="${communityList.size() == 0}">
+                                                <img class="notFoundImg" src="/img/notfound2.png">
+                                                <div style="margin-left: 58%;"><h2>无匹配结果</h2></div>
+                                            </div>
+                                            <ul>
+                                                <li th:each="community:${communityList}">
+                                                    <a th:href="@{'/community?community_id='+${community.community_id}}">
+                                                        <span th:text="${community.communityName}"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div th:insert="pageComponents::foot"></div>-->
+<footer class="footer" style="text-align: center;background-color: #ffffff;">
+    <p>Posted by | <a target="_blank" href="https://www.github.com/iwishing">iwishing</a>></p>
+    <p>Email:<a>cbwen1997@foxmail.com</a></p>
+</footer>
+</body>
+</html>

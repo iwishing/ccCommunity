@@ -47,7 +47,14 @@ public class CommunityController {
             UserDTO userDTO = userService.findByUsername(Long.valueOf(user.getUsername()));
             if (userDTO != null) {
                 //社区列表传入社区页
-                model.addAttribute("communityList",userDTO.getCommunityList());
+                //如果用户关注的社区数少于10个，则将关注数前10的添加进去
+                if (userDTO.getCommunityList().size() < 10){
+                    List<CommunityDTO> communityList = communityService.findCommunityDefault();
+                    userDTO.getCommunityList().removeAll(communityList);
+                    userDTO.getCommunityList().addAll(communityList);
+
+                    model.addAttribute("communityList",userDTO.getCommunityList());
+                }
             }else {
                 //获取关注数前10的社区显示
                 List communityList = communityService.findCommunityDefault();
@@ -107,5 +114,11 @@ public class CommunityController {
             communityService.subscriptionCommunity(Integer.parseInt(community_id),user.getId());
             return "subscription";
         }
+    }
+
+    @GetMapping("/community/applyCommunity")
+    public String applyCommunity(){
+
+        return "applyCommunity";
     }
 }

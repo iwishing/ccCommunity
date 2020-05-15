@@ -3,6 +3,7 @@ package iwishing.ccCommunity.community.service;
 import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
 import iwishing.ccCommunity.community.DTO.TagDTO;
+import iwishing.ccCommunity.community.domain.Post;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -71,4 +72,10 @@ public interface IPostService {
      * @param postId
      */
     public void addLikeCountByPostId(int postId);
+
+    /**
+     * 根据关键字搜索帖子
+     * @param searchKeyWord
+     */
+    public List<Post> findUserByKeyWord(String searchKeyWord);
 }

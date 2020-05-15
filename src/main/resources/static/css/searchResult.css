@@ -1,0 +1,29 @@
+body{
+    background: url("../img/backImage/backImage1.png") no-repeat center fixed;
+    background-size: 100%;
+}
+.profile{
+    margin-top: 20px;
+}
+#searchResultBody{
+    padding: 20px 300px 20px 20px;
+    background-color: #FFFFFF;
+    border: 1px solid lightgray;
+}
+.nav-tabs>li {
+    width: 33.3%;
+}
+.main{
+    margin: 50px;
+}
+.tab-content li{
+    list-style: none;
+    margin: 10px 0;
+    font-size: 20px;
+}
+.notFoundImg{
+    width: 30%;
+    margin-left: 53%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}

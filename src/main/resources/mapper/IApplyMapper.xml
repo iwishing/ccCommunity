@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iwishing.ccCommunity.community.mapper.IApplyMapper">
+<!--    保存申请-->
+    <insert id="saveApply" parameterType="ApplyDTO">
+        insert into apply (applyUserId, communityName, communityDescription, gmt_create, gmt_modified) VALUES
+        (#{applyUserId},#{communityName},#{communityDescription},#{gmt_create},#{gmt_modified})
+    </insert>
+
+<!--查询所有申请-->
+    <select id="findAllApply" resultType="ApplyDTO">
+        select * from  apply;
+    </select>
+<!--    根据申请id查询申请-->
+    <select id="findApplyById" parameterType="int" resultType="ApplyDTO">
+        select * from apply where applyId=#{applyId}
+    </select>
+<!--    根据申请id删除申请-->
+    <delete id="deleteApply" parameterType="int">
+        delete from apply where applyId=#{applyId}
+    </delete>
+
+</mapper>

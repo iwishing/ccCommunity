@@ -1,6 +1,7 @@
 package iwishing.ccCommunity.community.mapper;
 
 import iwishing.ccCommunity.community.DTO.PostDTO;
+import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -125,4 +126,11 @@ public interface IPostMapper {
      * @return
      */
     public String findPostTitleById(int postId);
+
+
+    /**
+     * 根据关键字搜索帖子
+     * @param searchKeyWord
+     */
+    public List<Post> findUserByKeyWord(String searchKeyWord);
 }

@@ -33,4 +33,15 @@ public class CommunityDTO {
     private List<User> userList;
     //社区和帖子是一对多的关系
     private List<PostDTO> postDTOList;
+
+
+    @Override
+    public boolean equals(Object e){
+        CommunityDTO communityDTO = (CommunityDTO)e;
+        if (this.community_id == communityDTO.community_id){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

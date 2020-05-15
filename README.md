@@ -23,6 +23,7 @@
 [<font color=#F4606C>editor.md富文本编辑器</font>](https://pandao.github.io/editor.md/#download)   
 [<font color=#F4606C>腾讯云对象存储</font>](https://cloud.tencent.com/document/product/436/10199)   
 [<font color=#F4606C>阿里矢量图形库</font>](https://www.iconfont.cn/)   
+[<font color=#F4606C>bootstrap-fileInput插件</font>](http://www.bootstrap-fileinput.com/)   
 
 
 ### 参考资料
@@ -33,6 +34,7 @@
 [<font color=#F4606C>mybatis多对多映射</font>](https://www.jianshu.com/p/58b92011130b)  
 [<font color=#F4606C>拦截器，资源映射器，页面跳转</font>](https://www.cnblogs.com/yangxiansen/p/7859991.html)  
 [<font color=#F4606C>@EnableWebMvc注解</font>](https://www.cnblogs.com/lvbinbin2yujie/p/10624584.html)  
+[<font color=#F4606C>window.location.href未跳转</font>](https://blog.csdn.net/g602270944/article/details/90369561)  
 
 
 ### 开发工具与环境

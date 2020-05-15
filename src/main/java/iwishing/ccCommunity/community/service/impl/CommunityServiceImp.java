@@ -86,4 +86,14 @@ public class CommunityServiceImp implements ICommunityService {
     public void cancelSubscription(int community_id,int userId){
         communityMapper.cancelSubscription(community_id,userId);
     }
+
+    /**
+     * 根据关键字查询社区
+     * @param searchKeyWord
+     * @return
+     */
+    @Override
+    public List<Community> findUserByKeyWord(String searchKeyWord){
+        return communityMapper.findUserByKeyWord(searchKeyWord);
+    }
 }

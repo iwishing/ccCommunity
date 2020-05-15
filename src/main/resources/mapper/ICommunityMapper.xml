@@ -46,4 +46,13 @@
     <delete id="cancelSubscription">
         delete from user_community where uid=#{userId} and cid=#{community_id};
     </delete>
+<!--  根据关键字查找社区-->
+    <select id="findUserByKeyWord" parameterType="java.lang.String" resultType="Community">
+        select id as community_id, creator, communityName, description, avatar, focus_count, post_count, gmt_create, gmt_modified
+         from community where communityName like CONCAT('%',#{searchKeyWord},'%' );
+    </select>
+    <insert id="saveCommunity" parameterType="CommunityDTO">
+        insert into community (creator, communityName, description, gmt_create, gmt_modified) VALUES
+        (#{creator},#{communityName},#{description},#{gmt_create},#{gmt_modified})
+    </insert>
 </mapper>

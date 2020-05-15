@@ -47,4 +47,11 @@ public interface ICommunityService {
      * 取消订阅
      */
     public void cancelSubscription(int community_id,int userId);
+
+    /**
+     * 根据关键字查询社区
+     * @param searchKeyWord
+     * @return
+     */
+    public List<Community> findUserByKeyWord(String searchKeyWord);
 }

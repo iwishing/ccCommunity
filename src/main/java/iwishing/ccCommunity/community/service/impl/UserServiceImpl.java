@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 用户业务层实现类
@@ -96,5 +97,26 @@ public class UserServiceImpl implements IUserService {
             userMapper.insertUserOfGithub(user);
         }
         return userMapper.findUserByUsername(user.getUsername());
+    }
+
+
+
+
+
+    /**
+     * 根据关键字查询用户
+     * @param searchKeyWord
+     * @return
+     */
+    @Override
+    public List<User> findUserByKeyWord(String searchKeyWord){
+        return userMapper.findUserByKeyWord(searchKeyWord);
+    }
+
+
+
+    @Override
+    public void updateUserByUserId(int userId,String avaterUrl){
+        userMapper.updateUserByUserId(userId,avaterUrl);
     }
 }

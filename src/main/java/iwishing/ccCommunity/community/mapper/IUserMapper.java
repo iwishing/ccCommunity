@@ -4,6 +4,8 @@ import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.domain.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 用户持久层接口
  */
@@ -62,4 +64,14 @@ public interface IUserMapper {
      */
     public User findUserByUsername(long username);
 
+
+    /**
+     * 根据关键字查询用户
+     * @param searchKeyWord
+     * @return
+     */
+    public List<User> findUserByKeyWord(String searchKeyWord);
+
+
+    public void updateUserByUserId(int userId,String avaterUrl);
 }

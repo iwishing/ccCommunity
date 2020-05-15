@@ -9,6 +9,7 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 
 import iwishing.ccCommunity.community.domain.User;
+import iwishing.ccCommunity.community.provider.TencentCloudProvider;
 import iwishing.ccCommunity.community.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +38,10 @@ public class UserController {
     private String code;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private TencentCloudProvider tencentCloudProvider;
+
+
 
     @Value("${messageCode.accessKeyId}")
     private String accessKeyId;
@@ -191,5 +198,24 @@ public class UserController {
         }
 
         System.out.println("为"+username+"获取验证码");
+    }
+
+    @RequestMapping(value = "/user/update",method = RequestMethod.POST)
+    @ResponseBody
+    public String upUserInfo(HttpServletRequest request){
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        // 获得文件：
+        MultipartFile name_data= multipartRequest.getFile("file_data");
+        String userUpdateId = (String)request.getParameter("userUpdateId");
+        //String userUpdateName = (String)request.getParameter("userUpdateName");
+        //2222222222
+        System.out.println(name_data);
+        System.out.println(userUpdateId);
+       // System.out.println(userUpdateName);
+        //2222222222222
+        String url = tencentCloudProvider.upload(name_data);
+
+        userService.updateUserByUserId(Integer.parseInt(userUpdateId),url);
+        return "redirect:/profile/mineInfo";
     }
 }

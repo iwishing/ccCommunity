@@ -55,4 +55,18 @@ public interface ICommunityMapper {
      * @param userId
      */
     public void cancelSubscription(@Param(value = "community_id") int community_id,@Param(value = "userId") int userId);
+
+
+    /**
+     * 根据关键字查询社区
+     * @param searchKeyWord
+     * @return
+     */
+    public List<Community> findUserByKeyWord(String searchKeyWord);
+
+    /**
+     * 根据社区id创建社区
+     * @param communityDTO
+     */
+    public void saveCommunity(CommunityDTO communityDTO);
 }

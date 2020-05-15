@@ -3,6 +3,7 @@ package iwishing.ccCommunity.community.service.impl;
 import iwishing.ccCommunity.community.DTO.PostDTO;
 import iwishing.ccCommunity.community.DTO.QueryPaginDTO;
 import iwishing.ccCommunity.community.DTO.TagDTO;
+import iwishing.ccCommunity.community.domain.Post;
 import iwishing.ccCommunity.community.domain.Tag;
 import iwishing.ccCommunity.community.domain.User;
 import iwishing.ccCommunity.community.mapper.IPostMapper;
@@ -192,8 +193,22 @@ public class PostServiceImpl implements IPostService {
         return iPostMapper.findRelatPostByTagType(TagType);
     }
 
+    /**
+     * 增加帖子的点赞数
+     * @param postId
+     */
     @Override
     public void addLikeCountByPostId(int postId) {
         iPostMapper.addLikeCountByPostId(postId);
+    }
+
+
+    /**
+     * 根据关键字搜索帖子
+     * @param searchKeyWord
+     */
+    @Override
+    public List<Post> findUserByKeyWord(String searchKeyWord){
+        return iPostMapper.findUserByKeyWord(searchKeyWord);
     }
 }

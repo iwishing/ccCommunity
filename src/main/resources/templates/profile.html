@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/global.css">
     <script type="text/javascript" src="/js/profile.js"></script>
+    <script src="/js/global.js"></script>
+
+<!--    bootstrap-fileinput插件-->
+    <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/js/fileinput.min.js"></script>
+<!--    bootstrap-fileinput插件-->
+
+
 </head>
 <body>
 <div id="container">
@@ -39,19 +47,52 @@
 <!--                            个人信息-->
                             <div th:if="${section == 'mineInfo'}">
                                 <div class="row">
-                                    <div col-md-6 col-md-offset-3 col-xs-6 col-sm-6 col-lg-6>
+                                    <div  style="margin-top: 20px;" class="col-md-2 col-md-offset-5 col-xs-2 col-sm-2 col-lg-2">
+                                        <input type="hidden" id="userUpdateId" name="userUpdateId" th:value="${session.user.id}">
                                         <div>
-                                            <img th:if="${session.user != null && session.user.avatar != null}" style="width: 38px" class="img-circle"
+                                            <img th:if="${session.user != null && session.user.avatar != null}" class="img-circle"
                                                  th:src="${session.user.avatar}"/>
-                                            <img th:if="${session.user == null || session.user.avatar == null}" style="width: 38px" class="img-circle"
+                                            <img th:if="${session.user == null || session.user.avatar == null}" class="img-circle"
                                                  src="/img/defaultUserIcon.png"/>
                                         </div>
                                         <div>
-                                            <span th:text="${session.user.name}"></span>
+                                            <h4 style="text-align: center;font-size: 20px" th:text="${session.user.name}"></h4>
                                         </div>
-                                        <div>
-                                            <div></div>
-                                            <div></div>
+
+                                        <!-- Small modal -->
+                                        <div style="margin-top: 10px;margin-bottom: 30px; margin-left: 20px;">
+<!--                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">更改信息</button>-->
+                                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div style="padding: 40px" class="modal-content">
+                                                        <h4 class="modal-title" id="myModalLabel">修改个人信息</h4>
+                                                        <div class="form-group">
+                                                            <input id="userImageFile" type="file" name="file_data">
+                                                        </div>
+<!--                                                        <input id="userUpdateName" type="text" name="name_data"  placeholder="用户昵称">-->
+                                                        <script>
+                                                            var userUpdateName = $('#userUpdateName').val();
+                                                            var userUpdateId = $('#userUpdateId').val().trim();
+                                                            // with plugin options
+                                                                $("#userImageFile").fileinput({
+                                                                showUpload:true,
+                                                                maxFileCount:1,
+                                                                language: 'zh', //设置语言
+                                                                dropZoneTitle: '可以将图片拖放到这里',
+                                                                dropZoneEnabled: true,
+                                                                uploadUrl: "/user/update", //上传的地址
+                                                                uploadExtraData:function () {
+                                                                    return {"userUpdateId": userUpdateId};
+                                                                }
+                                                            });
+                                                        </script>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+<!--                                                            <button type="button" class="btn btn-primary">保存更改</button>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

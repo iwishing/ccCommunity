@@ -7,6 +7,11 @@ html,body {
 #container{
     margin-bottom: 100px;
 }
+
+
+.loginInGithub{
+    margin-left: 40%;
+}
 /*模态框样式设置*/
 .modal-header{
     border-bottom: none;

@@ -69,4 +69,13 @@
     <select id="findUserByUsername" parameterType="long" resultType="user">
         select * from user where username=#{username}
     </select>
+
+<!--    根据关键字查询用户-->
+    <select id="findUserByKeyWord" parameterType="java.lang.String" resultType="User">
+        select * from user where name like CONCAT('%',#{searchKeyWord},'%' );
+    </select>
+
+    <update id="updateUserByUserId">
+        update user set avatar=#{avatarUrl} where id=#{userId}
+    </update>
 </mapper>

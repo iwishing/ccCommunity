@@ -137,4 +137,9 @@
     <select id="findPostTitleById" parameterType="int" resultType="java.lang.String">
         select title from post where id=#{postId}
     </select>
+
+
+    <select id="findUserByKeyWord" parameterType="java.lang.String" resultType="Post">
+        select * from post where title like CONCAT('%',#{searchKeyWord},'%' );
+    </select>
 </mapper>

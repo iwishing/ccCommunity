@@ -16,6 +16,7 @@
     <script type="text/javascript" src="/js/publish.js"></script>
     <script type="application/javascript" src="/lib/editormd.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/global.js"></script>
 
 </head>
 <body>
@@ -44,7 +45,7 @@
                                     height: "350px",
                                     watch: false,
                                     delay: 0,
-                                    placeholder: "请输入帖子详细内容",
+                                    placeholder: "内容",
                                     imageUpload: true,          // Enable/disable upload
                                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                                     imageUploadURL: "/file/upload"           // Upload url
@@ -65,9 +66,9 @@
                     </form>
                 </div>
                 <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
-                    <span class="" aria-hidden="true">主题：描述帖子主题</span><br>
-                    <span class="" aria-hidden="true">内容：帖子详细内容</span><br>
-                    <span class="" aria-hidden="true">标签：帖子标签，使用/隔开，每个不超过10个字</span><br>
+                    <span class="" aria-hidden="true"><span><span style="margin-right: 5px" class="label label-warning">主题</span>描述帖子主题</span><br>
+                    <span class="" aria-hidden="true"><span><span style="margin-right: 5px" class="label label-warning">内容</span>帖子详细内容</span><br>
+                    <span class="" aria-hidden="true"><span><span style="margin-right: 5px" class="label label-warning">标签</span>帖子标签，使用/隔开，每个不超过10个字</span><br>
                 </div>
             </div>
         </div>

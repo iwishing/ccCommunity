@@ -1,0 +1,10 @@
+body{
+    padding-bottom: 100px;
+    background: url("../img/backImage/backImage1.png") no-repeat center fixed;
+    background-size: 100%;
+}
+#applyCommunityBody{
+    background-color: white;
+    margin-top: 50px;
+    padding: 20px;
+}

@@ -3,6 +3,8 @@ package iwishing.ccCommunity.community.service;
 import iwishing.ccCommunity.community.DTO.UserDTO;
 import iwishing.ccCommunity.community.domain.User;
 
+import java.util.List;
+
 /**
  * 用户业务层接口
  */
@@ -49,4 +51,14 @@ public interface IUserService {
      * @return
      */
     public User insertUserOrUpdate(User user);
+
+    /**
+     * 根据关键字查询用户
+     * @param searchKeyWord
+     * @return
+     */
+    public List<User> findUserByKeyWord(String searchKeyWord);
+
+
+    public void updateUserByUserId(int userId,String avaterUrl);
 }
